@@ -2,8 +2,8 @@ import React from "react";
 
 // import { Container } from './styles';
 
-function SignUp() {
-  return <div>SignUp</div>;
+function feedPage() {
+  return <div>feed</div>;
 }
 
-export default SignUp;
+export default feedPage;

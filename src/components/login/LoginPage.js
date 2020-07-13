@@ -12,6 +12,11 @@ const Container = styled.div`
   background-color: white;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: 1023px) {
+    width: 86rem;
+    height: 42rem;
+  }
 `;
 const FormContainer = styled.div`
   display: flex;

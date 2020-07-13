@@ -10,6 +10,21 @@ const Container = styled.div`
   background-color: #e8222e;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: 700px) {
+    width: 49rem;
+    height: 64rem;
+  }
+
+  @media (min-width: 1024px) {
+    width: 70rem;
+    height: 85.5rem;
+  }
+
+  @media (min-width: 1035px) {
+    width: 86rem;
+    height: 42rem;
+  }
 `;
 
 function Landing() {

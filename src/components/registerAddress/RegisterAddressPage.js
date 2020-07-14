@@ -23,7 +23,7 @@ const ContainerForm = styled.form`
     justify-content: center;
 `
 
-export const RegisterAddresPage = () => {
+const RegisterAddressPage = () => {
     const { form, onChange } = 
     useForm({
         street: "", 
@@ -132,3 +132,5 @@ export const RegisterAddresPage = () => {
         </Container>
     )
 }
+
+export default RegisterAddressPage

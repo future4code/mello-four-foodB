@@ -22,8 +22,7 @@ const ContainerForm = styled.form`
     align-items: center;
     justify-content: center;
 `
-
-export const SignUpPage = () => {
+const SignUpPage = () => {
     const { form, onChange } = useForm({ name: "", email: "", cpf: "", password: ""})
 
     const handleInputChange = event => {
@@ -93,3 +92,5 @@ export const SignUpPage = () => {
         </Container>
     )
 }
+
+export default SignUpPage

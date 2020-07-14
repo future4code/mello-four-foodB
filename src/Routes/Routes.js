@@ -1,10 +1,10 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import SignUpPage from "../SignUp/index";
-import LoginPage from "../LoginPage/index";
-import FeedPage from "../FeedPage/index";
+import SignUpPage from "../components/signUp/SignUpPage";
+import LoginPage from "../components/login/LoginPage";
+import FeedPage from "../components/HomePage/HomePage";
 
-import Address from "../Address/index";
+import RegisterAddressPage from "../components/registerAddress/RegisterAddressPage";
 import CartPage from "../CartPage/index";
 import Profile from "../Profile/index";
 
@@ -26,7 +26,7 @@ const Routes = () => {
       <Route exact path="/" component={LoginPage} />
       <Route exact path="/signup" component={SignUpPage} />
       <PrivateRoute exact path="/feed" component={FeedPage} />
-      <PrivateRoute exact path="/address" component={Address} />
+      <PrivateRoute exact path="/address" component={RegisterAddressPage} />
       <PrivateRoute exact path="/cart" component={CartPage} />
       <PrivateRoute exact path="/profile" component={Profile} />
     </Switch>

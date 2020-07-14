@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import Logo from '../images/logo-invert/logo-invert.png'
+import Logo from '../../assets/images/logo-invert/logo-invert.png'
 import './login.css'
 
 const Container = styled.div`

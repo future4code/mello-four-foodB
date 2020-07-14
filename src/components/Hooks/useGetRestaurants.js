@@ -28,7 +28,7 @@ export const useGetRestaurants = () => {
       });
   };
 
-  //! Toda vez que salvo o getRestaurants entra como Dependece automaticamente.
+  //! Toda vez que salvo o getRestaurants entra como "Dependency" automaticamente.
   useEffect(() => {
     getRestaurants();
   }, []);

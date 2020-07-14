@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import SignUpPage from "../components/SignUp/SignUpPage";
 import LoginPage from "../components/Login/LoginPage";
 import FeedPage from "../components/FeedPage/FeedPage";
+import RestaurantPage from "../components/Restaurant/Restaurant";
 
 import RegisterAddressPage from "../components/RegisterAddress/RegisterAddressPage";
 //import CartPage from "../CartPage/index";
@@ -27,6 +28,7 @@ const Routes = () => {
       <Route exact path="/signup" component={SignUpPage} />
       <PrivateRoute exact path="/feed" component={FeedPage} />
       <PrivateRoute exact path="/address" component={RegisterAddressPage} />
+      <PrivateRoute exact path="/Restaurant/:id" component={RestaurantPage} />
       {/* <PrivateRoute exact path="/cart" component={CartPage} /> */}
       {/* <PrivateRoute exact path="/profile" component={Profile} /> */}
     </Switch>

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import "../../App.css";
 
 import { useGetRestaurants } from "../Hooks/useGetRestaurants";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const restaurants = useGetRestaurants();
@@ -11,7 +12,13 @@ const HomePage = () => {
     <>
       <div className="Container">
         <h3>Ifuture</h3>
-        <input className="SearchInput" type="text" placeholder="Restaurante" />
+        <Link to="/search">
+          <input
+            className="SearchInput"
+            type="text"
+            placeholder="Restaurante"
+          />
+        </Link>
         <div>
           <span className="Filter">Burguer</span>
           <span className="Filter">Asiáticas</span>

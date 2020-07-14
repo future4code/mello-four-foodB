@@ -1,12 +1,12 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import SignUpPage from "../components/signUp/SignUpPage";
-import LoginPage from "../components/login/LoginPage";
-import FeedPage from "../components/HomePage/HomePage";
+import SignUpPage from "../components/SignUp/SignUpPage";
+import LoginPage from "../components/Login/LoginPage";
+import FeedPage from "../components/FeedPage/FeedPage";
 
-import RegisterAddressPage from "../components/registerAddress/RegisterAddressPage";
-import CartPage from "../CartPage/index";
-import Profile from "../Profile/index";
+import RegisterAddressPage from "../components/RegisterAddress/RegisterAddressPage";
+//import CartPage from "../CartPage/index";
+//import Profile from "../Profile/index";
 
 function PrivateRoute({ component: Component, ...rest }) {
   const token = window.localStorage.getItem("token");
@@ -27,8 +27,8 @@ const Routes = () => {
       <Route exact path="/signup" component={SignUpPage} />
       <PrivateRoute exact path="/feed" component={FeedPage} />
       <PrivateRoute exact path="/address" component={RegisterAddressPage} />
-      <PrivateRoute exact path="/cart" component={CartPage} />
-      <PrivateRoute exact path="/profile" component={Profile} />
+      {/* <PrivateRoute exact path="/cart" component={CartPage} /> */}
+      {/* <PrivateRoute exact path="/profile" component={Profile} /> */}
     </Switch>
   );
 };

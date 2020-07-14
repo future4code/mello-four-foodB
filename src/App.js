@@ -1,14 +1,12 @@
 import React from "react";
-import "./App.css";
-import HomePage from "./components/HomePage/HomePage";
-//import SearchPage from "./components/HomePage/SearchPage";
+import Routes from "./Routes/Routes";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <HomePage />
-      {/* <SearchPage /> */}
-    </div>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
   );
 }
 

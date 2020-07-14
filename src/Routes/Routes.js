@@ -6,7 +6,8 @@ import FeedPage from "../components/FeedPage/FeedPage";
 import RestaurantPage from "../components/Restaurant/Restaurant";
 
 import RegisterAddressPage from "../components/RegisterAddress/RegisterAddressPage";
-//import CartPage from "../CartPage/index";
+import CartPage from "../components/Cart/cart";
+
 //import Profile from "../Profile/index";
 
 function PrivateRoute({ component: Component, ...rest }) {
@@ -29,7 +30,7 @@ const Routes = () => {
       <PrivateRoute exact path="/feed" component={FeedPage} />
       <PrivateRoute exact path="/address" component={RegisterAddressPage} />
       <PrivateRoute exact path="/Restaurant/:id" component={RestaurantPage} />
-      {/* <PrivateRoute exact path="/cart" component={CartPage} /> */}
+      {<PrivateRoute exact path="/cart" component={CartPage} />}
       {/* <PrivateRoute exact path="/profile" component={Profile} /> */}
     </Switch>
   );

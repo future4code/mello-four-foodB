@@ -30,7 +30,7 @@ const Routes = () => {
       <PrivateRoute exact path="/feed" component={FeedPage} />
       <PrivateRoute exact path="/address" component={RegisterAddressPage} />
       <PrivateRoute exact path="/Restaurant/:id" component={RestaurantPage} />
-      {<PrivateRoute exact path="/cart" component={CartPage} />}
+      <PrivateRoute exact path="/cart" component={CartPage} />
       {/* <PrivateRoute exact path="/profile" component={Profile} /> */}
     </Switch>
   );

@@ -1,13 +1,14 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, BrowserRouter } from "react-router-dom"; // browserRouter para auxiliar o protectedPage.
 import SignUpPage from "../components/SignUp/SignUpPage";
 import LoginPage from "../components/Login/LoginPage";
 import FeedPage from "../components/FeedPage/FeedPage";
 import SearchPage from "../components/SearchPage/SearchPage";
-
-import RegisterAddressPage from "../components/RegisterAddress/RegisterAddressPage";
 import ProductsPage from "../components/SearchPage/Products/ProductsPage";
-//import CartPage from "../CartPage/index";
+import RegisterAddressPage from "../components/RegisterAddress/RegisterAddressPage";
+import RestaurantPage from "../components/Restaurant/Restaurant";
+import CartPage from "../components/Cart/cart";
+
 //import Profile from "../Profile/index";
 
 function PrivateRoute({ component: Component, ...rest }) {
@@ -24,6 +25,7 @@ function PrivateRoute({ component: Component, ...rest }) {
 
 const Routes = () => {
   return (
+    <BrowserRouter>
     <Switch>
       <Route exact path="/" component={LoginPage} />
       <Route exact path="/signup" component={SignUpPage} />
@@ -31,9 +33,11 @@ const Routes = () => {
       <PrivateRoute exact path="/search" component={SearchPage} />
       <PrivateRoute exact path="/products" component={ProductsPage} />
       <PrivateRoute exact path="/address" component={RegisterAddressPage} />
-      {/* <PrivateRoute exact path="/cart" component={CartPage} /> */}
+      <PrivateRoute exact path="/Restaurant/:id" component={RestaurantPage} />
+      <PrivateRoute exact path="/cart" component={CartPage} />
       {/* <PrivateRoute exact path="/profile" component={Profile} /> */}
     </Switch>
+    </BrowserRouter>
   );
 };
 

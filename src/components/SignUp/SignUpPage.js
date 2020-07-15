@@ -1,9 +1,20 @@
 import React from "react";
+import TextField from '@material-ui/core/TextField'
+import { makeStyles } from '@material-ui/core/styles'
 import styled from "styled-components";
 import axios from "axios";
 import { useForm } from "../Hooks/useForm";
 import "./signUp.css";
 import Logo from "../../assets/images/logo-invert/logo-invert.png";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+  }));
 
 const baseUrl =
   "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB";
@@ -23,6 +34,9 @@ const ContainerForm = styled.form`
   justify-content: center;
 `;
 const SignUpPage = () => {
+    
+    const classes = useStyles()
+
   const { form, onChange } = useForm({
     name: "",
     email: "",
@@ -56,42 +70,46 @@ const SignUpPage = () => {
     <Container>
       <ContainerForm onSubmit={handleFormValues}>
         <img src={Logo} className="imageLogo" alt="logotipo ifuture" />
-        <h4>Cadastrar</h4>
-        <input
-          className="style-input"
-          value={form.name}
-          name="name"
-          type="text"
-          placeholder="nome"
-          required
-          onChange={handleInputChange}
+        <h4 className="style-tittle">Cadastrar</h4>
+        <TextField
+            className="style-input"
+            required
+            id="outlined-required"
+            label="Nome"
+            variant="outlined"
+            value={form.name}
+            onChange={handleInputChange}
+            placeholder="Nome e sobrenome"
         />
-        <input
-          className="style-input"
-          value={form.email}
-          name="email"
-          type="text"
-          placeholder="email"
-          required
-          onChange={handleInputChange}
+        <TextField
+            className="style-input"
+            required
+            id="outlined-required"
+            label="E-mail"
+            variant="outlined"
+            value={form.email}
+            onChange={handleInputChange}
+            placeholder="email@email.com"
         />
-        <input
-          className="style-input"
-          value={form.cpf}
-          name="cpf"
-          type="text"
-          placeholder="cpf"
-          required
-          onChange={handleInputChange}
+        <TextField
+            className="style-input"
+            required
+            id="outlined-required"
+            label="CPF"
+            variant="outlined"
+            value={form.cpf}
+            onChange={handleInputChange}
+            placeholder="000.000.000-00"
         />
-        <input
-          className="style-input"
-          value={form.password}
-          name="password"
-          type="password"
-          placeholder="senha"
-          required
-          onChange={handleInputChange}
+        <TextField
+            className="style-input"
+            required
+            id="outlined-required"
+            label="Senha"
+            variant="outlined"
+            value={form.password}
+            onChange={handleInputChange}
+            placeholder="Mínimo 6 caracteres"
         />
         <button className="style-button">Criar</button>
       </ContainerForm>

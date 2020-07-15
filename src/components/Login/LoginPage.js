@@ -1,8 +1,21 @@
 import React, { useState } from 'react'
+import { useHistory, Link } from 'react-router-dom'
+import TextField from '@material-ui/core/TextField'
+import { makeStyles } from '@material-ui/core/styles'
 import styled from 'styled-components'
 import axios from 'axios'
 import Logo from '../../assets/images/logo-invert/logo-invert.png'
 import './login.css'
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+  }));
 
 const Container = styled.div`
     display: flex;
@@ -23,8 +36,15 @@ const FormContainer = styled.div`
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB"
 
 function LoginPage () {
+    const classes = useStyles()
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const history = useHistory()
+    const nextPage = () => {
+        history.push("/feed")
+    }
 
     const handleEmail = (event) => {
         setEmail(event.target.value)
@@ -41,6 +61,7 @@ function LoginPage () {
         const response = await axios.post(`${baseUrl}/login`, loginBody)
         window.localStorage.setItem("token", response.data.token)
         alert("logado")
+        nextPage()
         } catch (error) {
             console.log(error)
             alert("falha ao logar")
@@ -51,21 +72,32 @@ function LoginPage () {
         <Container>
             <FormContainer>
                 <img src={Logo} className="imageLogo" alt="logotipo ifuture" />
-                <h4>Entrar</h4>
-                <input
-                    className="style-input" 
+                <h4 className="style-tittle">Entrar</h4>
+                <TextField
+                    className="style-input"
+                    required
+                    id="outlined-required"
+                    label="E-mail"
+                    variant="outlined"
                     value={email}
                     onChange={handleEmail}
                     placeholder="email@email.com"
                 />
-                <input
-                    className="style-input" 
+                <TextField
+                    className="style-input"
+                    required
+                    type="password"
+                    id="outlined-required"
+                    label="Senha"
+                    variant="outlined"
                     value={password}
                     onChange={handlePassword}
                     placeholder="Mínimo 6 caracteres"
                 />
                 <button onClick={login} className="style-button">Entrar</button>
-                <p className="stile-text">Não possui cadastro? Clique aqui.</p>
+                <Link to="/signup" className="link-text">
+                    <p className="style-text">Não possui cadastro? Clique aqui.</p>
+                </Link>     
             </FormContainer>
         </Container>
     )

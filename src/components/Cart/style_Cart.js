@@ -22,6 +22,16 @@ export const DivCart = styled.div`
     justify-content: center;
     align-items: center;
 `
+export const DivCartFull = styled.div`
+    overflow: auto;
+    max-height: 58vh;
+`
+export const DivCard = styled.div`
+    margin: 1rem;
+    height: 7rem;
+    border-radius: 8px;
+    border: solid 1px #b8b8b8
+`
 export const Pdefault = styled.div`
     color: #b8b8b8;
     padding: 1rem 1rem 0 1rem;
@@ -36,15 +46,45 @@ export const DivDataPayment = styled.div`
     width: 100vw;
 `
 export const InputRadio = styled.input`
-    margin-left: 1rem;
+    margin: 0.5rem 0.5rem 0.5rem 1rem; 
 `
 export const DivText = styled.div`
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.39px;
+`
+export const DivFreight = styled.div`
+    padding: 0 1rem 0.813rem 1rem;
+    text-align: right;
+    width: 100%;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.39px;
 `
 export const DivPayment = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 0 1rem;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.43px;
+`
+export const DivHr = styled.div`
+    width: 100%;
+    padding: 1rem;
 `
 export const DivButton = styled.div`
     display: flex;

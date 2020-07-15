@@ -20,23 +20,20 @@ const Index_Cart = (props) => {
             <S.PAddress>{address.address.street}</S.PAddress>
         </S.DivTitleEndereco>
         <S.DivCart>Carrinho vazio</S.DivCart>
+        <S.DivFreight>frete R$0,00</S.DivFreight>
+        <S.DivPayment>
+            <div>SubTotal</div>
+            <div>R$0,00</div>
+        </S.DivPayment>
+        <S.DivText>Forma de pagamento</S.DivText>
+        <S.DivHr><hr /></S.DivHr>
+        <div>
+            <S.InputRadio data-testid="money" name="paymentMethod" type="radio" id="money" value="money" onChange={choosePaymentMethod}/> Dinhero
+        </div>
+        <div>
+            <S.InputRadio data-testid="card" name="paymentMethod" type="radio" id="card" value="card" onChange={choosePaymentMethod}/> Cartão de crédito
+        </div>
         <S.DivDataPayment>
-            <S.DivPayment>
-                <div>frete</div>
-                <div>R$0,00</div>
-            </S.DivPayment>
-            <S.DivPayment>
-                <div>SubTotal</div>
-                <div>R$0,00</div>
-            </S.DivPayment>
-            <S.DivText>Forma de pagamento</S.DivText>
-            <hr />
-            <div>
-                <S.InputRadio data-testid="money" name="paymentMethod" type="radio" id="money" value="money" onChange={choosePaymentMethod}/> Dinhero
-            </div>
-            <div>
-                <S.InputRadio data-testid="card" name="paymentMethod" type="radio" id="card" value="card" onChange={choosePaymentMethod}/> Cartão de crédito
-            </div>
             <S.DivButton>
                 <S.ButtonCartEmpty>Confirmar</S.ButtonCartEmpty> 
             </S.DivButton>
@@ -50,15 +47,13 @@ const Index_Cart = (props) => {
                 <S.Pdefault>Endereço de entrega</S.Pdefault>
                 <S.PAddress>{address.address.street}</S.PAddress>
             </S.DivTitleEndereco>
-            {cart.map((product) => {
-            return (
-                <S.DivText key={product.id}>{product.product}</S.DivText>)
+            <S.DivCartFull>
+              {cart.map((product) => {
+                return (
+                  <S.DivCard key={product.id}>{product.product}</S.DivCard>)
             })}
-          <S.DivDataPayment>
-            <S.DivPayment>
-                <div>frete</div>
-                <div>R$0,00</div>
-            </S.DivPayment>
+            </S.DivCartFull>
+            <S.DivFreight>Frete R$0,00</S.DivFreight>
             <S.DivPayment>
                 <div>SubTotal</div>
                 <div>R${(cart.reduce((acumulador, valor) => acumulador + valor.price, 0)).toFixed(2)}</div>
@@ -70,8 +65,8 @@ const Index_Cart = (props) => {
             </div>
             <div>
                 <S.InputRadio data-testid="card" name="paymentMethod" type="radio" id="card" value="card" onChange={choosePaymentMethod}/> Cartão de crédito
-            </div>
-            ## LINK
+            </div>  
+          <S.DivDataPayment>
             <S.DivButton>
                 <S.ButtonCartFull>Confirmar</S.ButtonCartFull> 
             </S.DivButton>

@@ -1,9 +1,8 @@
 import React from "react";
-
 import "../../App.css";
 
-import { useGetRestaurants } from "../Hooks/useGetRestaurants";
 import { Link } from "react-router-dom";
+import { useGetRestaurants } from "../Hooks/useGetRestaurants";
 
 const HomePage = () => {
   const restaurants = useGetRestaurants();
@@ -26,7 +25,7 @@ const HomePage = () => {
           <span className="Filter">Saud</span>
         </div>
         {restaurants.map((restaurant) => (
-          <div className="Card">
+          <div key={restaurant.id} className="Card">
             <img src={restaurant.logoUrl} alt="Imagem do card" />
             <div>
               <p className="Restaurant">{restaurant.name}</p>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, BrowserRouter } from "react-router-dom"; // browserRouter para auxiliar o protectedPage.
 import SignUpPage from "../components/SignUp/SignUpPage";
 import LoginPage from "../components/Login/LoginPage";
 import FeedPage from "../components/FeedPage/FeedPage";
@@ -22,6 +22,7 @@ function PrivateRoute({ component: Component, ...rest }) {
 
 const Routes = () => {
   return (
+    <BrowserRouter>
     <Switch>
       <Route exact path="/" component={LoginPage} />
       <Route exact path="/signup" component={SignUpPage} />
@@ -30,6 +31,7 @@ const Routes = () => {
       {/* <PrivateRoute exact path="/cart" component={CartPage} /> */}
       {/* <PrivateRoute exact path="/profile" component={Profile} /> */}
     </Switch>
+    </BrowserRouter>
   );
 };
 

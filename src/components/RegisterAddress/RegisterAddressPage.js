@@ -1,8 +1,24 @@
 import React, { useEffect } from 'react'
+import { useHistory, Link } from 'react-router-dom'
+import { useForm } from '../Hooks/useForm'
+
+import TextField from '@material-ui/core/TextField'
+import { makeStyles } from '@material-ui/core/styles'
+
 import styled from 'styled-components'
 import axios from 'axios'
-import { useForm } from '../Hooks/useForm'
+
 import './register-address.css'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+  }));
+
 
 const token = window.localStorage.getItem('token')
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB"
@@ -24,10 +40,18 @@ const ContainerForm = styled.form`
 `
 
 const RegisterAddressPage = () => {
+
+    const classes = useStyles()
+
+    const history = useHistory()
+    const nextPage = () => {
+        history.push("/feed")
+    }
+
     const { form, onChange } = 
     useForm({
         street: "", 
-        number: 0, 
+        number: undefined, 
         neighbourhood: "", 
         city: "", 
         state: "",
@@ -49,6 +73,7 @@ const RegisterAddressPage = () => {
     const handleFormValues = (event) => {
         event.preventDefault()
         registerAddress()
+        nextPage()
     }
 
     const axiosConfig = {
@@ -72,60 +97,66 @@ const RegisterAddressPage = () => {
     return (
         <Container>
             <ContainerForm onSubmit={handleFormValues}>
-                <h4>Meu endereço</h4>
-                <input
-                    className="style-input" 
+                <h4 className="style-tittle">Meu endereço</h4>
+                <TextField
+                    className="style-input"
+                    required
+                    id="outlined-required"
+                    label="Logradouro"
+                    variant="outlined"
                     value={form.street}
-                    name="street"
-                    type="text"
-                    placeholder="Rua / AV."
-                    required
                     onChange={handleInputChange}
+                    placeholder="Rua / Av."
                 />
-                <input
-                    className="style-input" 
-                    value={form.number}
-                    name="number"
+                <TextField
+                    className="style-input"
+                    required
+                    id="outlined-required"
+                    label="Número"
+                    variant="outlined"
                     type="number"
+                    value={form.number}
+                    onChange={handleInputChange}
                     placeholder="Número"
-                    required
-                    onChange={handleInputChange}
                 />
-                <input
-                    className="style-input" 
-                    value={form.neighbourhood}
-                    name="neighbourhood"
-                    type="text"
-                    placeholder="Apto. / Bloco"
-                    required
-                    onChange={handleInputChange}
-                />
-                <input
-                    className="style-input" 
-                    value={form.city}
-                    name="city"
-                    type="text"
-                    placeholder="Cidade"
-                    required
-                    onChange={handleInputChange}
-                />
-                <input
-                    className="style-input" 
-                    value={form.state}
-                    name="state"
-                    type="text"
-                    placeholder="Estado"
-                    required
-                    onChange={handleInputChange}
-                />
-                <input
-                    className="style-input" 
+                <TextField
+                    className="style-input"
+                    id="outlined-required"
+                    label="Complemento"
+                    variant="outlined"
                     value={form.complement}
-                    name="complement"
-                    type="text"
-                    placeholder="Complemento"
-                    required
                     onChange={handleInputChange}
+                    placeholder="Apto. / Bloco"
+                />
+                <TextField
+                    className="style-input"
+                    required
+                    id="outlined-required"
+                    label="Bairro"
+                    variant="outlined"
+                    value={form.neighbourhood}
+                    onChange={handleInputChange}
+                    placeholder="Bairro"
+                />
+                <TextField
+                    className="style-input"
+                    required
+                    id="outlined-required"
+                    label="Logradouro"
+                    variant="outlined"
+                    value={form.city}
+                    onChange={handleInputChange}
+                    placeholder="Cidade"
+                />
+                <TextField
+                    className="style-input"
+                    required
+                    id="outlined-required"
+                    label="Estado"
+                    variant="outlined"
+                    value={form.state}
+                    onChange={handleInputChange}
+                    placeholder="Estado"
                 />
                 <button className="style-button">Salvar</button>
             </ContainerForm>

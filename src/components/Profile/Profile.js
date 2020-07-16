@@ -18,18 +18,24 @@ import {
 } from "../Profile/styled";
 import editIcon from "../../assets/Profile/edit.png";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 // import { Container } from './styles';
 
 function ProfilePage() {
   const [profile, setProfile] = useState("");
   const [address, setAddress] = useState();
-  const [history, setHistory] = useState([]);
+  const [historys, setHistorys] = useState([]);
 
   useEffect(() => {
     getProfile();
-    getHistory();
+    getHistorys();
   }, []);
+
+  const history = useHistory();
+  const goToProfileEdit = () => {
+    history.push("/editProfile");
+  };
 
   const getProfile = () => {
     const token =
@@ -55,7 +61,7 @@ function ProfilePage() {
       });
   };
 
-  const getHistory = () => {
+  const getHistorys = () => {
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZBOGlWQ2RVZ3k2R01OSE1BU1AxIiwibmFtZSI6Ikx1aXoiLCJlbWFpbCI6Imx1aXpAZ21haWwuY29tIiwiY3BmIjoiMjIyLjIyMi4zMzMtNDQiLCJoYXNBZGRyZXNzIjp0cnVlLCJhZGRyZXNzIjoiUi4gQWZvbnNvIEJyYXosIDE3NywgNzEgLSBWaWxhIE4uIENvbmNlacOnw6NvIiwiaWF0IjoxNTk0NzAxOTI3fQ.0Nmf_3Ow1zhBIExOzMVQp78HD--o5DO0BxBdP13Jh9E";
 
@@ -70,7 +76,7 @@ function ProfilePage() {
         axiosConfig
       )
       .then((response) => {
-        setHistory(response.data.orders);
+        setHistorys(response.data.orders);
         console.log(response);
       })
       .catch((error) => {
@@ -86,7 +92,7 @@ function ProfilePage() {
 
       <CardsStyled>
         <PerfilStyle>
-          {profile.name} <Img src={editIcon} />
+          {profile.name} <Img onClick={goToProfileEdit} src={editIcon} />
         </PerfilStyle>
         <PerfilStyle>{profile.email}</PerfilStyle>
         <PerfilStyle>{profile.cpf}</PerfilStyle>
@@ -103,8 +109,8 @@ function ProfilePage() {
       <hr></hr>
       <CardsStyled>
         <Text>
-          {history.length
-            ? history.map((order) => {
+          {historys.length
+            ? historys.map((order) => {
                 const date = new Date(order.expiresAt).toLocaleDateString(
                   "pt-br"
                 );

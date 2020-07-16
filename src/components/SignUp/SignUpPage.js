@@ -1,11 +1,22 @@
-import React from "react"; 
-import TextField from '@material-ui/core/TextField';
+import React from "react";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import axios from "axios";
 import { useForm } from "../Hooks/useForm";
 import "./signUp.css";
 import Logo from "../../assets/images/logo-invert/logo-invert.png";
 
+import Header from "../Header/Header";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
+  },
+}));
 
 const baseUrl =
   "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB"
@@ -67,12 +78,14 @@ const SignUpPage = () => {
       })
   };
   return (
-    
-    <Container>
-      <ContainerForm onSubmit={handleFormValues}>
-        <img src={Logo} className="imageLogo" alt="logotipo ifuture" />
-        <h4 className="style-tittle">Cadastrar</h4>
-        <TextField
+    <>
+      <Header BackArrow='True' PageToLink='/'/>
+      <Container>
+        <ContainerForm onSubmit={handleFormValues}>
+          <img src={Logo} className="imageLogo" alt="logotipo ifuture" />
+          <h4 className="style-tittle">Cadastrar</h4>
+          <TextField
+
             className="style-input"
             required
             id="outlined-required"
@@ -82,9 +95,8 @@ const SignUpPage = () => {
             name="name"
             onChange={handleInputChange}
             placeholder="Nome e sobrenome"
-        />
-
-        <TextField
+          />
+          <TextField
             className="style-input"
             required
             id="outlined-required"
@@ -94,8 +106,8 @@ const SignUpPage = () => {
             onChange={handleInputChange}
             name="email"
             placeholder="email@email.com"
-        />
-        <TextField
+          />
+          <TextField
             className="style-input"
             required
             id="outlined-required"
@@ -105,8 +117,8 @@ const SignUpPage = () => {
             onChange={handleInputChange}
             name="cpf"
             placeholder="000.000.000-00"
-        />
-        <TextField
+          />
+          <TextField
             className="style-input"
             required
             id="outlined-required"
@@ -134,6 +146,7 @@ const SignUpPage = () => {
         <button className="style-button">Criar</button>
       </ContainerForm>
     </Container>
+    </>
   );
 };
 

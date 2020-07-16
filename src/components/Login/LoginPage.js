@@ -60,6 +60,8 @@ function LoginPage() {
     try {
       const response = await axios.post(`${baseUrl}/login`, loginBody);
       window.localStorage.setItem("token", response.data.token);
+      window.localStorage.setItem("user", response.data.user);
+      window.localStorage.setItem("user", response.data.user.address);
       alert("logado");
       nextPage();
     } catch (error) {

@@ -21,7 +21,6 @@ export const useGetRestaurants = () => {
       )
       .then((response) => {
         setRestaurants(response.data.restaurants);
-        console.log(response.data.restaurants);
       })
       .catch((error) => {
         console.log(error);

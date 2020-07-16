@@ -1,0 +1,157 @@
+/* Eu sempre dou reset no CSS, se não ficar no lugar descomenta essa linha abaixo */
+
+/* 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  --lipstick: #e8222e;
+} */
+
+/* 
+
+=======================================
+Daqui pra baixo é só o card de produtos
+
+*/
+
+/* Card inteiro imagem e textos */
+.CardProducts {
+  border: solid 1px #b8b8b8;
+  width: 20.5rem;
+  height: 7rem;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 1rem;
+
+  display: flex;
+}
+
+/*  Só a imagem */
+.ImgProduct {
+  width: 6rem;
+  height: 7rem;
+  object-fit: contain;
+}
+
+/* Conteúdo que fica do lado da imagem */
+.CardAside {
+  width: 14.65rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ProductLabel {
+  width: 18.5rem;
+
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.39px;
+
+  margin: 0.75rem 1rem;
+  text-align: left;
+  color: var(--lipstick);
+}
+
+/* Nome do restaurante e Quantidade de items ficam dentro dessa div */
+.CardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 2px;
+
+  display: flex;
+  align-items: flex-start;
+}
+
+.Description {
+  width: 12.5rem;
+  height: 1.125rem;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  margin: 0 1rem 1rem;
+  text-align: left;
+  color: #b8b8b8;
+  letter-spacing: -0.29px;
+}
+
+/* Quantidade de items, Só usar quando tiver items no carrinho
+
+Caso não tenha item deixe a tag span vazia componente mas não a remova
+*/
+.Amount {
+  min-width: 2.063rem;
+  height: 2.063rem;
+  color: var(--lipstick);
+
+  border-radius: 8px;
+  border-radius: 0 8px 0 8px;
+  border: solid 1px var(--lipstick);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ProductDescription {
+  width: 12.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  margin: 0 1rem 1rem;
+  text-align: left;
+  color: #b8b8b8;
+  letter-spacing: -0.29px;
+}
+
+/* Preço e Botão ficam dentro dessa div */
+.CardFooterProducts {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 2px;
+}
+
+.Price {
+  width: 5.375rem;
+  font-size: 1rem;
+  letter-spacing: -0.39px;
+  margin: 0 1rem 0.5rem;
+
+  text-align: left;
+}
+
+/* Botão preto, sem itens no carrinho  */
+.ButtonAdd {
+  width: 5.625rem;
+  height: 1.938rem;
+  width: 5.625rem;
+  height: 1.75rem;
+
+  margin-bottom: -1px;
+  background-color: #fff;
+  font-size: 0.85rem;
+  letter-spacing: -0.39px;
+  border-radius: 8px 0 8px 0;
+  border: solid 1px black;
+}
+
+/* Botão vermelho, Só usar esse CSS quando tem itens no carrinho*/
+.ButtonRemove {
+  width: 5.625rem;
+  height: 1.938rem;
+  width: 5.625rem;
+  height: 1.75rem;
+
+  margin-bottom: -1px;
+  background-color: #fff;
+  font-size: 0.85rem;
+  letter-spacing: -0.39px;
+  border-radius: 8px 0 8px 0;
+  border: solid 1px var(--lipstick);
+  color: var(--lipstick);
+}

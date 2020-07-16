@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import { useHistory } from "react-router-dom";
-import './Header.css';
+import "./Header.css";
 
-import { Typography, IconButton, Divider  } from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { Typography, IconButton, Divider } from "@material-ui/core";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 function Header(props) {
-  let history = useHistory()
+  let history = useHistory();
 
   /* PROPS
     //BackArrow 'True' use backArrow in header
@@ -18,22 +18,36 @@ function Header(props) {
 
   const ChangePage = (pageToLink) => {
     history.push(`/${pageToLink}`);
-  }
+  };
 
   const GetHeader = () => {
     return (
-    <div className="Header">
-        {props.BackArrow? (<IconButton onClick={() => ChangePage(props.PageToLink? props.PageToLink: 'Home')}><ArrowBackIosIcon/></IconButton>) : (<div style={{width:"20%", height:'47px'}}/>)}
-        <Typography variant="h5">{props.title? props.title : "IFuture"}</Typography>
-        <div style={{width:"20%"}}/>
-    </div>
-    )
-  }
+      <div className="Header">
+        {props.BackArrow ? (
+          <IconButton
+            onClick={() =>
+              ChangePage(props.PageToLink ? props.PageToLink : "Home")
+            }
+          >
+            <ArrowBackIosIcon />
+          </IconButton>
+        ) : (
+          <div style={{ width: "20%", height: "47px" }} />
+        )}
+        <Typography variant="h5">
+          {props.title ? props.title : "IFuture"}
+        </Typography>
+        <div style={{ width: "20%" }} />
+      </div>
+    );
+  };
 
-  return  <div className="AppBar"> 
-        {GetHeader()}
-        <Divider/>
+  return (
+    <div className="AppBar">
+      {GetHeader()}
+      <Divider />
     </div>
+  );
 }
 
-export default Header
+export default Header;

@@ -45,7 +45,7 @@ function Restaurant({
   }
 
   return <div> 
-          <Header BackArrow='True' PageToLink='' title='Habbibs'/>
+          <Header BackArrow='True' PageToLink='feed' title='Restaurante'/>
           <h1>Title</h1>
           <Footer currentPage='Profile'/>
     </div>

@@ -1,20 +1,22 @@
 import React from "react";
-import TextField from '@material-ui/core/TextField'
-import { makeStyles } from '@material-ui/core/styles'
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import axios from "axios";
 import { useForm } from "../Hooks/useForm";
 import "./signUp.css";
 import Logo from "../../assets/images/logo-invert/logo-invert.png";
 
+import Header from "../Header/Header";
+
 const useStyles = makeStyles((theme) => ({
-    root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      },
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "25ch",
     },
-  }));
+  },
+}));
 
 const baseUrl =
   "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB";
@@ -34,8 +36,7 @@ const ContainerForm = styled.form`
   justify-content: center;
 `;
 const SignUpPage = () => {
-    
-    const classes = useStyles()
+  const classes = useStyles();
 
   const { form, onChange } = useForm({
     name: "",
@@ -67,11 +68,13 @@ const SignUpPage = () => {
       });
   };
   return (
-    <Container>
-      <ContainerForm onSubmit={handleFormValues}>
-        <img src={Logo} className="imageLogo" alt="logotipo ifuture" />
-        <h4 className="style-tittle">Cadastrar</h4>
-        <TextField
+    <>
+      <Header BackArrow='True' PageToLink='/'/>
+      <Container>
+        <ContainerForm onSubmit={handleFormValues}>
+          <img src={Logo} className="imageLogo" alt="logotipo ifuture" />
+          <h4 className="style-tittle">Cadastrar</h4>
+          <TextField
             className="style-input"
             required
             id="outlined-required"
@@ -80,8 +83,8 @@ const SignUpPage = () => {
             value={form.name}
             onChange={handleInputChange}
             placeholder="Nome e sobrenome"
-        />
-        <TextField
+          />
+          <TextField
             className="style-input"
             required
             id="outlined-required"
@@ -90,8 +93,8 @@ const SignUpPage = () => {
             value={form.email}
             onChange={handleInputChange}
             placeholder="email@email.com"
-        />
-        <TextField
+          />
+          <TextField
             className="style-input"
             required
             id="outlined-required"
@@ -100,8 +103,8 @@ const SignUpPage = () => {
             value={form.cpf}
             onChange={handleInputChange}
             placeholder="000.000.000-00"
-        />
-        <TextField
+          />
+          <TextField
             className="style-input"
             required
             id="outlined-required"
@@ -110,10 +113,11 @@ const SignUpPage = () => {
             value={form.password}
             onChange={handleInputChange}
             placeholder="Mínimo 6 caracteres"
-        />
-        <button className="style-button">Criar</button>
-      </ContainerForm>
-    </Container>
+          />
+          <button className="style-button">Criar</button>
+        </ContainerForm>
+      </Container>
+    </>
   );
 };
 

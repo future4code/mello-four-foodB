@@ -1,67 +1,54 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-//import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import "./SearchPage.css";
 
-import FoodImage from "../../assets/image.jpg";
-import "../../App.css";
+import { useGetRestaurants } from "../Hooks/useGetRestaurants";
 
 const SearchPage = () => {
-  const [details, setDetails] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const restaurants = useGetRestaurants();
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlRMTGRGN0ZSR1ZCYjZRZks0dDJzIiwibmFtZSI6Ikthc3Bhcm92IiwiZW1haWwiOiJrYXNwYXJvdkBnbWFpbC5jb20iLCJjcGYiOiIxMTEuMTExLjExMS0xMiIsImhhc0FkZHJlc3MiOnRydWUsImFkZHJlc3MiOiJSLiBDaGVzcywgMTcxLCBBIC0gQ2hlZWt5IEJyZWVrIiwiaWF0IjoxNTk0NjgyODQ0fQ.24bewsoHPv3dKl0C8OD5uAPpPCVbQVLNNLlBB9TemoE";
-
-  const restaurantId = 8;
-
-  const axiosConfig = {
-    headers: {
-      auth: token,
-    },
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
   };
 
-  const getRestaurantsDetails = () => {
-    axios
-      .get(
-        `https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/restaurants/${restaurantId}
-      `,
-        axiosConfig
-      )
-      .then((response) => {
-        setDetails(response.data.restaurant.products);
-        console.log(response.data.restaurant.products);
-      });
-  };
-
-  useEffect(() => {
-    getRestaurantsDetails();
-  },[]);
+  const searchedRestaurant = restaurants.filter((restaurant) =>
+    restaurant.name.toLowerCase().includes(inputValue)
+  );
+  console.log(searchedRestaurant);
 
   return (
-    <div>
-      <div className="Container">
-        <h3>Busca</h3>
-        <input className="SearchInput" type="text" />
-        <div className="Card">
-          <img src={FoodImage} alt="Imagem do card" />
-          <div>
-            <p className="Restaurant">Nome do restaurante</p>
-            <div className="CardFooter">
-              <span className="Time-to-deliver">Tempo de entrega</span>
-              <span className="Shipping-fee">Frete</span>
+    <div className="Container">
+      <h3>Busca</h3>
+      <input
+        placeholder="Restaurante"
+        className="SearchInput"
+        type="text"
+        autoFocus
+        onChange={handleInputChange}
+      />
+
+      {inputValue === "" ? (
+        <span>Busque por nome de restaurante</span>
+      ) : inputValue.includes(searchedRestaurant) ? (
+        <span>Não encontramos :(</span>
+      ) : (
+        searchedRestaurant.map((restaurant, index) => (
+          <div key={index} className="Card">
+            <img src={restaurant.logoUrl} alt="Imagem do card" />
+            <div>
+              <p className="Restaurant">{restaurant.name}</p>
+              <div className="CardFooter">
+                <span className="Time-to-deliver">
+                  {restaurant.deliveryTime} - {restaurant.deliveryTime + 20} min
+                </span>
+                <span className="Shipping-fee">
+                  Frete R${restaurant.shipping.toFixed(2)}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="Card">
-          <img src={FoodImage} alt="Imagem do card" />
-          <div>
-            <p className="Restaurant">Nome do restaurante</p>
-            <div className="CardFooter">
-              <span className="Time-to-deliver">Tempo de entrega</span>
-              <span className="Shipping-fee">Frete</span>
-            </div>
-          </div>
-        </div>
-      </div>
+        ))
+      )}
     </div>
   );
 };

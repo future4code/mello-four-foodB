@@ -1,32 +1,36 @@
 import React from "react";
+import "./FeedPage.css";
 
-import "../../App.css";
-
-import { useGetRestaurants } from "../Hooks/useGetRestaurants";
 import { Link } from "react-router-dom";
+import { useGetRestaurants } from "../Hooks/useGetRestaurants";
 
-const HomePage = () => {
+const FeedPage = () => {
   const restaurants = useGetRestaurants();
 
+  //TODO: Falta Tirar o scroll do Filtro.
+
   return (
-    <>
-      <div className="Container">
-        <h3>Ifuture</h3>
-        <Link to="/search">
-          <input
-            className="SearchInput"
-            type="text"
-            placeholder="Restaurante"
-          />
-        </Link>
-        <div>
-          <span className="Filter">Burguer</span>
-          <span className="Filter">Asiáticas</span>
-          <span className="Filter">Massas</span>
-          <span className="Filter">Saud</span>
-        </div>
+    <div className="Container">
+      <h3>Ifuture</h3>
+      <Link to="/search">
+        <input className="SearchInput" type="text" placeholder="Restaurante" />
+      </Link>
+      <div className="FilterCard">
         {restaurants.map((restaurant) => (
-          <div className="Card">
+          <span key={restaurant.id} className="Filter">
+            {restaurant.category}
+          </span>
+        ))}
+      </div>
+
+      {restaurants.map((restaurant) => (
+        <Link
+          to={{
+            pathname: "/products",
+            state: { restaurantId: restaurant.id },
+          }}
+        >
+          <div key={restaurant.id} className="Card">
             <img src={restaurant.logoUrl} alt="Imagem do card" />
             <div>
               <p className="Restaurant">{restaurant.name}</p>
@@ -40,10 +44,10 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-        ))}
-      </div>
-    </>
+        </Link>
+      ))}
+    </div>
   );
 };
 
-export default HomePage;
+export default FeedPage;

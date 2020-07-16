@@ -21,14 +21,13 @@ export const useGetRestaurants = () => {
       )
       .then((response) => {
         setRestaurants(response.data.restaurants);
-        console.log(response.data.restaurants);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  //! Toda vez que salvo o getRestaurants entra como "Dependency" automaticamente.
+  //! Toda vez que salvo o getRestaurants entra como Dependency automaticamente.
   useEffect(() => {
     getRestaurants();
   }, []);

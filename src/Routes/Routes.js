@@ -8,6 +8,7 @@ import ProductsPage from "../components/SearchPage/Products/ProductsPage";
 import RegisterAddressPage from "../components/RegisterAddress/RegisterAddressPage";
 import RestaurantPage from "../components/Restaurant/Restaurant";
 import CartPage from "../components/Cart/cart";
+import Profile from "../components/Profile/Profile";
 
 //import Profile from "../Profile/index";
 
@@ -30,6 +31,7 @@ const Routes = () => {
       <Route exact path="/" component={LoginPage} />
       <Route exact path="/signup" component={SignUpPage} />
       <PrivateRoute exact path="/feed" component={FeedPage} />
+      <PrivateRoute exact path="/profile" component={Profile} />
       <PrivateRoute exact path="/search" component={SearchPage} />
       <PrivateRoute exact path="/products" component={ProductsPage} />
       <PrivateRoute exact path="/address" component={RegisterAddressPage} />

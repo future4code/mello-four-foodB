@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 
 import axios from "axios";
 import "./EditProfile.css";
+import { useHistory } from "react-router-dom";
 
 // import { Container } from './styles';
 
@@ -30,6 +31,11 @@ function EditProfile() {
     editProfile();
   }, []);
 
+  const history = useHistory();
+  const nextPage = () => {
+    history.push("/profile");
+  };
+
   const { form, onChange } = useForm({
     name: "",
     email: "",
@@ -43,6 +49,7 @@ function EditProfile() {
   const handleFormValues = (event) => {
     event.preventDefault();
     editProfile();
+    nextPage();
   };
 
   const editProfile = () => {
@@ -64,7 +71,6 @@ function EditProfile() {
       })
       .catch((error) => {
         console.log(error);
-        console.log(form);
       });
   };
 

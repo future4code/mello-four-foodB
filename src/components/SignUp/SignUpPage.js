@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const baseUrl =
-  "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB";
+  "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB"
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,36 +36,46 @@ const ContainerForm = styled.form`
   justify-content: center;
 `;
 const SignUpPage = () => {
-  const classes = useStyles();
+    
+  const checkPassword = () => {
+    const password1 = form.password
+    const password2 = form.cPassword
+      if (password1 !== password2) {
+        alert("sua senha não é igual")
+      }
+  }
 
   const { form, onChange } = useForm({
     name: "",
     email: "",
     cpf: "",
     password: "",
+    cPassword:""
   });
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  const handleInputChange = event => {
+    const { name, value } = event.target
 
-    onChange(name, value);
+    onChange(name, value)
   };
-
+  
   const handleFormValues = (event) => {
-    event.preventDefault();
-    registerUser();
+    checkPassword()
+    event.preventDefault()
+    registerUser()
   };
 
   const registerUser = () => {
+    console.log(form)
     axios
       .post(`${baseUrl}/signup`, form)
       .then((response) => {
-        alert("Cadastro Efetuado");
+        alert("Cadastro Efetuado")
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data.message)
         alert("Cadastro não realizado");
-      });
+      })
   };
   return (
     <>
@@ -75,12 +85,14 @@ const SignUpPage = () => {
           <img src={Logo} className="imageLogo" alt="logotipo ifuture" />
           <h4 className="style-tittle">Cadastrar</h4>
           <TextField
+
             className="style-input"
             required
             id="outlined-required"
             label="Nome"
             variant="outlined"
             value={form.name}
+            name="name"
             onChange={handleInputChange}
             placeholder="Nome e sobrenome"
           />
@@ -92,6 +104,7 @@ const SignUpPage = () => {
             variant="outlined"
             value={form.email}
             onChange={handleInputChange}
+            name="email"
             placeholder="email@email.com"
           />
           <TextField
@@ -102,6 +115,7 @@ const SignUpPage = () => {
             variant="outlined"
             value={form.cpf}
             onChange={handleInputChange}
+            name="cpf"
             placeholder="000.000.000-00"
           />
           <TextField
@@ -112,11 +126,26 @@ const SignUpPage = () => {
             variant="outlined"
             value={form.password}
             onChange={handleInputChange}
+            name="password"
+            type="password"
             placeholder="Mínimo 6 caracteres"
-          />
-          <button className="style-button">Criar</button>
-        </ContainerForm>
-      </Container>
+        />
+        <TextField
+            className="style-input"
+            required
+            helperText="Deve ser a mesma que a anterior."
+            id="outlined-required"
+            label="Confirmar"
+            variant="outlined"
+            value={form.cPassword}
+            onChange={handleInputChange}
+            name="cPassword"
+            type="password"
+            placeholder="Confirme a senha anterior"
+        />
+        <button className="style-button">Criar</button>
+      </ContainerForm>
+    </Container>
     </>
   );
 };

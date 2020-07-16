@@ -22,6 +22,7 @@ function Header(props) {
 
   const GetHeader = () => {
     return (
+
       <div className="Header">
         {props.BackArrow ? (
           <IconButton
@@ -46,6 +47,7 @@ function Header(props) {
     <div className="AppBar">
       {GetHeader()}
       <Divider />
+
     </div>
   );
 }

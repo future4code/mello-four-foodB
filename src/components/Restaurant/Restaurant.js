@@ -3,9 +3,9 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 import Header from '../Header/Header'
-import Footer from '../Footer/Footer'
 
 import './Restaurant.css';
+import { Typography, Divider, Card, CardMedia, CardContent, Button } from '@material-ui/core';
 
 function Restaurant({
     match: {
@@ -18,9 +18,17 @@ function Restaurant({
   const [restaurant, setRestaurant] = useState({}); 
   const [products, setProducts] = useState([]); 
 
+  const [popUp, setPopUp] = useState(false);
+  const [productPopUp, setProductPopUp] = useState({});
+  const [popUpQuantity, setPopUpQuantity] = useState(0);
+  
+  const [cartObjects, setCartObjects] = useState([]);
+  const [refresh, setRefresh] = useState(0);
+
   useEffect(() => {
-      GetRestaurantData();
-  },[])
+    setCartObjects(GetCartObjects());
+    GetRestaurantData();
+  },[refresh])
 
   function GetRestaurantData(){
     const token = window.localStorage.getItem('token');
@@ -39,15 +47,170 @@ function Restaurant({
         console.log(error); 
      })
   }
-  
+
+  function MountMainDishes (){
+
+    const categories = [];
+      
+    for(let i=0; i<products.length; i++){
+      if(!categories.includes(products[i].category))
+        categories.push(products[i].category);  
+    }
+
+    return categories.map(category => {
+      return MountCard(products.filter(product => product.category === category));
+    })
+  }
+
+  const MountCard = (categoryPoducts) => {
+
+    const cards = categoryPoducts.map(product => {
+      let quantity = 0;
+
+      for(let i = 0; i < cartObjects.length; i++)
+      {
+        if(cartObjects[i].product.id === product.id)
+        {
+          quantity = cartObjects[i].quantity;
+        }
+      }
+
+      return <div key={product.id} className="ProductCard">
+          <CardMedia
+            component="img"
+            style={{width:'151px'}}
+            image={product.photoUrl}
+            title={product.name}
+          />
+          <CardContent className='CardContent'>
+            {quantity > 0 && <div>
+              <span className="QuantityLabel">{quantity}</span>
+            </div>}
+            <h6 component="subtitle2" variant="h6">
+              {product.name}
+            </h6>
+            <p variant="caption" color="textSecondary">
+              {product.description}
+            </p>
+            <div>
+              <h6 component="subtitle2" variant="h6">
+                R${product.price}
+              </h6>
+              <button className={quantity > 0? 'OrderButtonRed' : 'OrderButton'} onClick={quantity > 0? () => RemoveProductFromCart(product) : () => OpenPopup(product)} color={quantity > 0? 'red': ''}>{quantity > 0? 'remover' : 'adicionar'}</button>
+            </div>
+          </CardContent>
+      </div>
+    })
+
+    return <div className='CategoryCard'>
+      <Typography>{categoryPoducts[0]? categoryPoducts[0].category: 'categoria'}</Typography>
+      <Divider></Divider>
+      {cards}
+    </div>
+  }
+
+  const OpenPopup = (product) => {
+    setProductPopUp(product);
+    setPopUpQuantity(0);
+    setPopUp(true);
+  }
+
+  const AddProductToCart = () => {
+    if(popUpQuantity != 0)
+    {
+      const NewProduct = {
+        product:productPopUp,
+        quantity:popUpQuantity
+      }
+
+      let cart = new Array();
+
+      if (localStorage.hasOwnProperty("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"))
+      }
+
+      cart.push(NewProduct);
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      setRefresh(refresh + 1);
+    }
+
+    setPopUp(false);
+  }
+
+  const RemoveProductFromCart = (productToRemove) => {
+    for(let i = 0; i < cartObjects.length; i++){
+      if(cartObjects[i].product.id === productToRemove.id)
+      {
+        cartObjects.splice(i, 1);
+        localStorage.setItem("cart", JSON.stringify(cartObjects));
+        setRefresh(refresh + 1);
+      }
+    }
+  }
+
+  const OnChangeQuantity = (event) => {
+    setPopUpQuantity(event.target.value);
+  }
+
+  function RenderPopUp(){
+    return <div className='BlackScreen'>
+      <div className='popup'>
+        <Typography component="subtitle2" variant="h6">
+          selecione a quantidade desejada
+        </Typography>
+        <select name="quantity" id="cars" className='select' onChange={e => OnChangeQuantity(e)}>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <Button onClick={() => AddProductToCart()} color='primary' fullWidth='true'>Adicionar ao carrinho</Button>
+      </div>
+    </div>
+  }
+
   const ChangePage = (pageToLink) => {
     history.push(`/${pageToLink}`);
   }
 
+  const GetCartObjects = () => {
+    if (localStorage.hasOwnProperty("cart")) {
+      return JSON.parse(localStorage.getItem("cart"));
+    }else{
+      return [];
+    }
+  }
+
   return <div> 
-          <Header BackArrow='True' PageToLink='feed' title='Restaurante'/>
-          <h1>Title</h1>
-          <Footer currentPage='Profile'/>
+
+        <Header BackArrow='True' PageToLink='' title={Restaurant? restaurant.name: "Carregando"}/>
+        {Restaurant && <div className='Canvas'>
+          <img src={restaurant.logoUrl}/>
+
+          <Typography>{restaurant.name}</Typography>
+          <Typography variant="subtitle2" color="textSecondary">{restaurant.category}</Typography>
+          <div className="SameLineText">
+            <Typography variant="subtitle2" color="textSecondary">{restaurant.deliveryTime} min</Typography>
+            <Typography variant="subtitle2" color="textSecondary">Frete: R${restaurant.shipping}</Typography>
+          </div>
+          <Typography variant="subtitle2" color="textSecondary">{restaurant.address}</Typography>
+        </div>}
+
+        {Restaurant && <div className='Canvas'>
+          <div>
+            {MountMainDishes()}
+          </div> 
+        </div>}
+
+        {popUp && RenderPopUp()}
     </div>
 }
 

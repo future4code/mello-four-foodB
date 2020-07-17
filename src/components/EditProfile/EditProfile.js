@@ -25,6 +25,7 @@ const FormContainer = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
 `;
 
 function EditProfile() {
@@ -78,8 +79,7 @@ function EditProfile() {
 
   return (
     <Container>
-      <Header BackArrow="True" PageToLink="profile" />
-      <p>Editar</p>
+      <Header BackArrow="True" PageToLink="profile" title="Editar" />
       <FormContainer onSubmit={handleFormValues}>
         <TextField
           className="style-input"

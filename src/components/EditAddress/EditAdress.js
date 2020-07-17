@@ -9,6 +9,7 @@ import styled from "styled-components";
 import axios from "axios";
 
 import Header from "../Header/Header";
+import Footer from "../Footer/Footer"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +38,7 @@ const ContainerForm = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 1rem;
 `;
 
 const EditAddress = () => {
@@ -92,9 +94,8 @@ const EditAddress = () => {
 
   return (
     <Container>
-      <Header BackArrow="True" PageToLink="profile" />
+      <Header BackArrow="True" PageToLink="profile" title="Endereço" />
       <ContainerForm onSubmit={handleFormValues}>
-        <h4 className="style-tittle"> Endereço</h4>
         <TextField
           className="style-input"
           required
@@ -163,6 +164,7 @@ const EditAddress = () => {
         />
         <button className="style-button">Salvar</button>
       </ContainerForm>
+      <Footer/>
     </Container>
   );
 };

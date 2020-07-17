@@ -22,9 +22,6 @@ import { useHistory } from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-
 // import { Container } from './styles';
 
 function ProfilePage() {
@@ -91,19 +88,18 @@ function ProfilePage() {
   return (
     <>
       <Container>
-      <Header title="Meu Perfil" />
+        <Header title="Meu Perfil" />
         <CardsStyled>
           <PerfilStyle>
-            {profile.name} <Img src={editIcon} />
+            {profile.name} <Img onClick={goToProfileEdit} src={editIcon} />
           </PerfilStyle>
           <PerfilStyle>{profile.email}</PerfilStyle>
           <PerfilStyle>{profile.cpf}</PerfilStyle>
         </CardsStyled>
-
         <CardsStyled2>
           <EnderecoCadastrado>
             Endereço Cadastrado
-            <Img src={editIcon} />
+            <Img onClick={goToAddressEdit} src={editIcon} />
           </EnderecoCadastrado>
           <Endereco>{profile.address}</Endereco>
         </CardsStyled2>
@@ -111,8 +107,8 @@ function ProfilePage() {
         <hr></hr>
         <CardsStyled>
           <Text>
-            {history.length
-              ? history.map((order) => {
+            {historys.length > 0
+              ? historys.map((order) => {
                   const date = new Date(order.expiresAt).toLocaleDateString(
                     "pt-br"
                   );

@@ -212,7 +212,6 @@ function Restaurant({
         </div>}
 
         {popUp && RenderPopUp()}
-        <OrderPopUp></OrderPopUp>
     </div>
 }
 

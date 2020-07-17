@@ -19,27 +19,25 @@ import {
 import editIcon from "../../assets/Profile/edit.png";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 // import { Container } from './styles';
 
 function ProfilePage() {
   const [profile, setProfile] = useState("");
-  const [address, setAddress] = useState();
   const [historys, setHistorys] = useState([]);
-
-  useEffect(() => {
-    getProfile();
-    getHistorys();
-  }, []);
 
   const history = useHistory();
   const goToProfileEdit = () => {
     history.push("/editProfile");
   };
+  const goToAddressEdit = () => {
+    history.push("/editAddress");
+  };
 
   const getProfile = () => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZBOGlWQ2RVZ3k2R01OSE1BU1AxIiwibmFtZSI6Ikx1aXoiLCJlbWFpbCI6Imx1aXpAZ21haWwuY29tIiwiY3BmIjoiMjIyLjIyMi4zMzMtNDQiLCJoYXNBZGRyZXNzIjp0cnVlLCJhZGRyZXNzIjoiUi4gQWZvbnNvIEJyYXosIDE3NywgNzEgLSBWaWxhIE4uIENvbmNlacOnw6NvIiwiaWF0IjoxNTk0NzAxOTI3fQ.0Nmf_3Ow1zhBIExOzMVQp78HD--o5DO0BxBdP13Jh9E";
+    const token = window.localStorage.getItem("token");
 
     const axiosConfig = {
       headers: {
@@ -62,8 +60,7 @@ function ProfilePage() {
   };
 
   const getHistorys = () => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZBOGlWQ2RVZ3k2R01OSE1BU1AxIiwibmFtZSI6Ikx1aXoiLCJlbWFpbCI6Imx1aXpAZ21haWwuY29tIiwiY3BmIjoiMjIyLjIyMi4zMzMtNDQiLCJoYXNBZGRyZXNzIjp0cnVlLCJhZGRyZXNzIjoiUi4gQWZvbnNvIEJyYXosIDE3NywgNzEgLSBWaWxhIE4uIENvbmNlacOnw6NvIiwiaWF0IjoxNTk0NzAxOTI3fQ.0Nmf_3Ow1zhBIExOzMVQp78HD--o5DO0BxBdP13Jh9E";
+    const token = window.localStorage.getItem("token");
 
     const axiosConfig = {
       headers: {
@@ -83,9 +80,14 @@ function ProfilePage() {
         console.log(error);
       });
   };
+  useEffect(() => {
+    getProfile();
+    getHistorys();
+  }, []);
 
   return (
     <Container>
+      <Header BackArrow="True" PageToLink="feed" />
       <TitleProfile>
         <p>Meu Perfil</p>
       </TitleProfile>
@@ -101,7 +103,7 @@ function ProfilePage() {
       <CardsStyled2>
         <EnderecoCadastrado>
           Endereço Cadastrado
-          <Img src={editIcon} />
+          <Img onClick={goToAddressEdit} src={editIcon} />
         </EnderecoCadastrado>
         <Endereco>{profile.address}</Endereco>
       </CardsStyled2>

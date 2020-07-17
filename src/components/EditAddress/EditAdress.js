@@ -8,8 +8,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import axios from "axios";
 
-import "./register-address.css";
-
 import Header from "../Header/Header";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,12 +39,16 @@ const ContainerForm = styled.form`
   justify-content: center;
 `;
 
-const RegisterAddressPage = () => {
+const EditAddress = () => {
   const classes = useStyles();
 
+  useEffect(() => {
+    registerAddress();
+  }, []);
+
   const history = useHistory();
-  const nextPage = () => {
-    history.push("/feed");
+  const goToProfile = () => {
+    history.push("/profile");
   };
 
   const { form, onChange } = useForm({
@@ -58,13 +60,6 @@ const RegisterAddressPage = () => {
     complement: "",
   });
 
-  useEffect(() => {
-    const token = window.localStorage.getItem("token");
-    if (token === null) {
-      //history.push('/LoginPage') usar para navegação
-    }
-  }, []);
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
@@ -73,7 +68,7 @@ const RegisterAddressPage = () => {
   const handleFormValues = (event) => {
     event.preventDefault();
     registerAddress();
-    nextPage();
+    goToProfile();
   };
 
   const axiosConfig = {
@@ -86,7 +81,7 @@ const RegisterAddressPage = () => {
     axios
       .put(`${baseUrl}/address`, form, axiosConfig)
       .then((response) => {
-        alert("Cadastro concluido!");
+        alert("Endereço registrado com sucesso!");
         window.localStorage.setItem("address", response.data.user);
         console.log(response.data.user);
       })
@@ -97,16 +92,16 @@ const RegisterAddressPage = () => {
 
   return (
     <Container>
-      <Header BackArrow="True" PageToLink="signup" />
+      <Header BackArrow="True" PageToLink="profile" />
       <ContainerForm onSubmit={handleFormValues}>
-        <h4 className="style-tittle">Meu endereço</h4>
+        <h4 className="style-tittle"> Endereço</h4>
         <TextField
           className="style-input"
           required
           id="outlined-required"
           label="Logradouro"
           variant="outlined"
-          defaultValue={form.street}
+          value={form.street}
           name="street"
           onChange={handleInputChange}
           placeholder="Rua / Av."
@@ -118,7 +113,7 @@ const RegisterAddressPage = () => {
           label="Número"
           variant="outlined"
           type="number"
-          defaultValue={form.number}
+          value={form.number}
           name="number"
           onChange={handleInputChange}
           placeholder="Número"
@@ -128,7 +123,7 @@ const RegisterAddressPage = () => {
           id="outlined-required"
           label="Complemento"
           variant="outlined"
-          defaultValue={form.complement}
+          value={form.complement}
           name="complement"
           onChange={handleInputChange}
           placeholder="Apto. / Bloco"
@@ -139,7 +134,7 @@ const RegisterAddressPage = () => {
           id="outlined-required"
           label="Bairro"
           variant="outlined"
-          defaultValue={form.neighbourhood}
+          value={form.neighbourhood}
           name="neighbourhood"
           onChange={handleInputChange}
           placeholder="Bairro"
@@ -150,7 +145,7 @@ const RegisterAddressPage = () => {
           id="outlined-required"
           label="Logradouro"
           variant="outlined"
-          defaultValue={form.city}
+          value={form.city}
           name="city"
           onChange={handleInputChange}
           placeholder="Cidade"
@@ -161,7 +156,7 @@ const RegisterAddressPage = () => {
           id="outlined-required"
           label="Estado"
           variant="outlined"
-          defaultValue={form.state}
+          value={form.state}
           name="state"
           onChange={handleInputChange}
           placeholder="Estado"
@@ -172,4 +167,4 @@ const RegisterAddressPage = () => {
   );
 };
 
-export default RegisterAddressPage;
+export default EditAddress;

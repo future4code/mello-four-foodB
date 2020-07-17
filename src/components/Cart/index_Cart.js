@@ -11,7 +11,7 @@ const Index_Cart = (props) => {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')));
   const [token, setToken] = useState(localStorage.getItem('token'))
   const [paymentMethod, setPaymentMethod] = useState('');
-  const address = JSON.parse(localStorage.getItem('addressUser'));
+  const address = JSON.parse(localStorage.getItem('user'));
   const [newCart, setNewCart] = useState([]);
   const auxNewCart = []
 
@@ -111,7 +111,7 @@ const Index_Cart = (props) => {
         <S.DivSubHeader>Meu carrinho</S.DivSubHeader>
         <S.DivTitleEndereco>
             <S.Pdefault>Endereço de entrega</S.Pdefault>
-            <S.PAddress>{address.address.street}</S.PAddress>
+            <S.PAddress>{address.address}</S.PAddress>
         </S.DivTitleEndereco>
         <S.DivCart>Carrinho vazio</S.DivCart>
         <S.DivFreight>frete R$0,00</S.DivFreight>
@@ -135,14 +135,15 @@ const Index_Cart = (props) => {
         </S.DivContainer>)
   } else {
       return (
+      <>
         <S.DivContainer>
             <S.DivSubHeader>Meu carrinho</S.DivSubHeader>
             <S.DivTitleEndereco>
                 <S.Pdefault>Endereço de entrega</S.Pdefault>
-                <S.PAddress>{address.address.street}</S.PAddress>
+                <S.PAddress>{address.address}</S.PAddress>
             </S.DivTitleEndereco>
             <S.DivCartFull>
-              {newCart.length > 0 && newCart.map((product) => {
+              {newCart.length > 0 && newCart.product.map((product) => {
                 return (
                 <S.DivCard key={product.id}>
                     <S.ImgProduct src={product.photoUrl} />
@@ -151,7 +152,7 @@ const Index_Cart = (props) => {
                         <S.TitleProduct>{product.name}</S.TitleProduct>
                         <S.DescProduct>{product.description}</S.DescProduct>
                       <S.BottomCard>  
-                        <S.PriceProduct>{product.price.toFixed(2)}</S.PriceProduct>
+                        <S.PriceProduct>{product.price}</S.PriceProduct>
                         <S.ButtonDeleteProduct onClick={() => removeProduct(product.id)}>remover</S.ButtonDeleteProduct>
                       </S.BottomCard>
                     </S.DivProductDetail>
@@ -175,8 +176,10 @@ const Index_Cart = (props) => {
             <S.DivButton>
                 <S.ButtonCartFull onClick={() => {confirmBuy(newCart)}}>Confirmar</S.ButtonCartFull> 
             </S.DivButton>
-          </S.DivDataPayment>  
-        </S.DivContainer>)
+          </S.DivDataPayment> 
+        </S.DivContainer>
+          </>
+        )
   }
 }
 

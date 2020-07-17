@@ -26,13 +26,7 @@ import Footer from "../Footer/Footer";
 
 function ProfilePage() {
   const [profile, setProfile] = useState("");
-  const [address, setAddress] = useState();
   const [historys, setHistorys] = useState([]);
-
-  useEffect(() => {
-    getProfile();
-    getHistorys();
-  }, []);
 
   const history = useHistory();
   const goToProfileEdit = () => {
@@ -66,8 +60,7 @@ function ProfilePage() {
   };
 
   const getHistorys = () => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZBOGlWQ2RVZ3k2R01OSE1BU1AxIiwibmFtZSI6Ikx1aXoiLCJlbWFpbCI6Imx1aXpAZ21haWwuY29tIiwiY3BmIjoiMjIyLjIyMi4zMzMtNDQiLCJoYXNBZGRyZXNzIjp0cnVlLCJhZGRyZXNzIjoiUi4gQWZvbnNvIEJyYXosIDE3NywgNzEgLSBWaWxhIE4uIENvbmNlacOnw6NvIiwiaWF0IjoxNTk0NzAxOTI3fQ.0Nmf_3Ow1zhBIExOzMVQp78HD--o5DO0BxBdP13Jh9E";
+    const token = window.localStorage.getItem("token");
 
     const axiosConfig = {
       headers: {
@@ -87,6 +80,10 @@ function ProfilePage() {
         console.log(error);
       });
   };
+  useEffect(() => {
+    getProfile();
+    getHistorys();
+  }, []);
 
   return (
     <Container>

@@ -10,6 +10,7 @@ import RestaurantPage from "../components/Restaurant/Restaurant";
 import CartPage from "../components/Cart/cart";
 import Profile from "../components/Profile/Profile";
 import EditProfile from "../components/EditProfile/EditProfile";
+import EditAddress from "../components/EditAddress/EditAdress";
 
 //import Profile from "../Profile/index";
 
@@ -34,6 +35,7 @@ const Routes = () => {
         <PrivateRoute exact path="/feed" component={FeedPage} />
         <PrivateRoute exact path="/profile" component={Profile} />
         <PrivateRoute exact path="/editProfile" component={EditProfile} />
+        <PrivateRoute exact path="/editAddress" component={EditAddress} />
         <PrivateRoute exact path="/search" component={SearchPage} />
         <PrivateRoute exact path="/products" component={ProductsPage} />
         <PrivateRoute exact path="/address" component={RegisterAddressPage} />

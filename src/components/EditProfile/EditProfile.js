@@ -6,6 +6,8 @@ import TextField from "@material-ui/core/TextField";
 
 import axios from "axios";
 import "./EditProfile.css";
+import { useHistory } from "react-router-dom";
+import Header from "../Header/Header";
 
 // import { Container } from './styles';
 
@@ -30,6 +32,11 @@ function EditProfile() {
     editProfile();
   }, []);
 
+  const history = useHistory();
+  const goToProfile = () => {
+    history.push("/profile");
+  };
+
   const { form, onChange } = useForm({
     name: "",
     email: "",
@@ -43,6 +50,7 @@ function EditProfile() {
   const handleFormValues = (event) => {
     event.preventDefault();
     editProfile();
+    goToProfile();
   };
 
   const editProfile = () => {
@@ -61,15 +69,16 @@ function EditProfile() {
       )
       .then((response) => {
         console.log(response.data);
+        alert("Perfil editado com sucesso");
       })
       .catch((error) => {
         console.log(error);
-        console.log(form);
       });
   };
 
   return (
     <Container>
+      <Header BackArrow="True" PageToLink="profile" />
       <p>Editar</p>
       <FormContainer onSubmit={handleFormValues}>
         <TextField

@@ -8,8 +8,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import axios from "axios";
 
-import "./register-address.css";
-
 import Header from "../Header/Header";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,12 +39,16 @@ const ContainerForm = styled.form`
   justify-content: center;
 `;
 
-const RegisterAddressPage = () => {
+const EditAddress = () => {
   const classes = useStyles();
 
+  useEffect(() => {
+    registerAddress();
+  }, []);
+
   const history = useHistory();
-  const nextPage = () => {
-    history.push("/feed");
+  const goToProfile = () => {
+    history.push("/profile");
   };
 
   const { form, onChange } = useForm({
@@ -58,13 +60,6 @@ const RegisterAddressPage = () => {
     complement: "",
   });
 
-  useEffect(() => {
-    const token = window.localStorage.getItem("token");
-    if (token === null) {
-      //history.push('/LoginPage') usar para navegação
-    }
-  }, []);
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
@@ -73,7 +68,7 @@ const RegisterAddressPage = () => {
   const handleFormValues = (event) => {
     event.preventDefault();
     registerAddress();
-    nextPage();
+    goToProfile();
   };
 
   const axiosConfig = {
@@ -97,9 +92,9 @@ const RegisterAddressPage = () => {
 
   return (
     <Container>
-      <Header BackArrow="True" PageToLink="signup" />
+      <Header BackArrow="True" PageToLink="profile" />
       <ContainerForm onSubmit={handleFormValues}>
-        <h4 className="style-tittle">Meu endereço</h4>
+        <h4 className="style-tittle"> Endereço</h4>
         <TextField
           className="style-input"
           required
@@ -172,4 +167,4 @@ const RegisterAddressPage = () => {
   );
 };
 
-export default RegisterAddressPage;
+export default EditAddress;

@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./ProductPage.css";
 
 import CardProduct from "./CardProduct/CardProduct";
-import logoUrl from "../../../assets/feed-home/image.jpg";
+//import logoUrl from "../../../assets/feed-home/image.jpg";
 
 import { useGetRestaurants } from "../../Hooks/useGetRestaurants";
 
@@ -11,7 +12,7 @@ const ProductsPage = (props) => {
   const restaurants = useGetRestaurants();
 
   const restaurantPerId = restaurants.filter((restaurant) => {
-    return restaurant.id === "2";
+    return restaurant.id === "1";
   });
 
   console.log(restaurantPerId);

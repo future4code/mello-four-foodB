@@ -22,6 +22,9 @@ import { useHistory } from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+
 // import { Container } from './styles';
 
 function ProfilePage() {
@@ -86,52 +89,51 @@ function ProfilePage() {
   }, []);
 
   return (
-    <Container>
-      <Header BackArrow="True" PageToLink="feed" />
-      <TitleProfile>
-        <p>Meu Perfil</p>
-      </TitleProfile>
+    <>
+      <Container>
+      <Header title="Meu Perfil" />
+        <CardsStyled>
+          <PerfilStyle>
+            {profile.name} <Img src={editIcon} />
+          </PerfilStyle>
+          <PerfilStyle>{profile.email}</PerfilStyle>
+          <PerfilStyle>{profile.cpf}</PerfilStyle>
+        </CardsStyled>
 
-      <CardsStyled>
-        <PerfilStyle>
-          {profile.name} <Img onClick={goToProfileEdit} src={editIcon} />
-        </PerfilStyle>
-        <PerfilStyle>{profile.email}</PerfilStyle>
-        <PerfilStyle>{profile.cpf}</PerfilStyle>
-      </CardsStyled>
-
-      <CardsStyled2>
-        <EnderecoCadastrado>
-          Endereço Cadastrado
-          <Img onClick={goToAddressEdit} src={editIcon} />
-        </EnderecoCadastrado>
-        <Endereco>{profile.address}</Endereco>
-      </CardsStyled2>
-      <Pedido>Histórico de pedidos</Pedido>
-      <hr></hr>
-      <CardsStyled>
-        <Text>
-          {historys.length
-            ? historys.map((order) => {
-                const date = new Date(order.expiresAt).toLocaleDateString(
-                  "pt-br"
-                );
-                return (
-                  <PedidosCard>
-                    <Rectangle>
-                      <RestaurantName>{order.restaurantName}</RestaurantName>
-                      <Day>{date}</Day>
-                      <SubTotal>
-                        <p>SUBTOTAL R${order.totalPrice}</p>
-                      </SubTotal>
-                    </Rectangle>
-                  </PedidosCard>
-                );
-              })
-            : "Você não realizou nenhum pedido "}
-        </Text>
-      </CardsStyled>
-    </Container>
+        <CardsStyled2>
+          <EnderecoCadastrado>
+            Endereço Cadastrado
+            <Img src={editIcon} />
+          </EnderecoCadastrado>
+          <Endereco>{profile.address}</Endereco>
+        </CardsStyled2>
+        <Pedido>Histórico de pedidos</Pedido>
+        <hr></hr>
+        <CardsStyled>
+          <Text>
+            {history.length
+              ? history.map((order) => {
+                  const date = new Date(order.expiresAt).toLocaleDateString(
+                    "pt-br"
+                  );
+                  return (
+                    <PedidosCard>
+                      <Rectangle>
+                        <RestaurantName>{order.restaurantName}</RestaurantName>
+                        <Day>{date}</Day>
+                        <SubTotal>
+                          <p>SUBTOTAL R${order.totalPrice}</p>
+                        </SubTotal>
+                      </Rectangle>
+                    </PedidosCard>
+                  );
+                })
+              : "Você não realizou nenhum pedido "}
+          </Text>
+        </CardsStyled>
+      </Container>
+      <Footer currentPage="profile" />
+    </>
   );
 }
 

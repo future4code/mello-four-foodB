@@ -4,8 +4,7 @@ import axios from "axios";
 export const useGetRestaurants = () => {
   const [restaurants, setRestaurants] = useState([]);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlRMTGRGN0ZSR1ZCYjZRZks0dDJzIiwibmFtZSI6Ikthc3Bhcm92IiwiZW1haWwiOiJrYXNwYXJvdkBnbWFpbC5jb20iLCJjcGYiOiIxMTEuMTExLjExMS0xMiIsImhhc0FkZHJlc3MiOnRydWUsImFkZHJlc3MiOiJSLiBDaGVzcywgMTcxLCBBIC0gQ2hlZWt5IEJyZWVrIiwiaWF0IjoxNTk0NjgyODQ0fQ.24bewsoHPv3dKl0C8OD5uAPpPCVbQVLNNLlBB9TemoE";
+  const token = window.localStorage.getItem("token");
 
   const axiosConfig = {
     headers: {

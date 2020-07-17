@@ -19,6 +19,8 @@ import {
 import editIcon from "../../assets/Profile/edit.png";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 // import { Container } from './styles';
 
@@ -35,6 +37,9 @@ function ProfilePage() {
   const history = useHistory();
   const goToProfileEdit = () => {
     history.push("/editProfile");
+  };
+  const goToAddressEdit = () => {
+    history.push("/editAddress");
   };
 
   const getProfile = () => {
@@ -85,6 +90,7 @@ function ProfilePage() {
 
   return (
     <Container>
+      <Header BackArrow="True" PageToLink="feed" />
       <TitleProfile>
         <p>Meu Perfil</p>
       </TitleProfile>
@@ -100,7 +106,7 @@ function ProfilePage() {
       <CardsStyled2>
         <EnderecoCadastrado>
           Endereço Cadastrado
-          <Img src={editIcon} />
+          <Img onClick={goToAddressEdit} src={editIcon} />
         </EnderecoCadastrado>
         <Endereco>{profile.address}</Endereco>
       </CardsStyled2>

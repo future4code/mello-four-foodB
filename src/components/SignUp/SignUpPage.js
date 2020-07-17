@@ -6,6 +6,7 @@ import axios from "axios";
 import { useForm } from "../Hooks/useForm";
 import "./signUp.css";
 import Logo from "../../assets/images/logo-invert/logo-invert.png";
+import { useHistory } from "react-router-dom" 
 
 import Header from "../Header/Header";
 
@@ -36,6 +37,11 @@ const ContainerForm = styled.form`
   justify-content: center;
 `;
 const SignUpPage = () => {
+
+  const history = useHistory();
+  const nextPage = () => {
+    history.push("/address");
+  };
     
   const checkPassword = () => {
     const password1 = form.password
@@ -63,6 +69,7 @@ const SignUpPage = () => {
     checkPassword()
     event.preventDefault()
     registerUser()
+    nextPage()
   };
 
   const registerUser = () => {
@@ -70,7 +77,6 @@ const SignUpPage = () => {
     axios
       .post(`${baseUrl}/signup`, form)
       .then((response) => {
-        alert("Cadastro Efetuado")
       })
       .catch((error) => {
         console.log(error.response.data.message)

@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 export const DivContainer = styled.div`
     width: 100vw;
+    @media (min-width: 1366px){
+        width: 50vw
+    }
 `
 export const DivSubHeader = styled.div`
     display: flex;
@@ -12,7 +15,7 @@ export const DivSubHeader = styled.div`
     font-weight: bold;
 `
 export const DivTitleEndereco = styled.div`
-    width: 100vw;
+    width: 100%;
     background-color: #eeeeee;
     margin-bottom: 0.5rem;
 `
@@ -140,8 +143,8 @@ export const DivText = styled.div`
 `
 export const DivFreight = styled.div`
     padding: 0 1rem 0.813rem 1rem;
+    margin: 0 ;
     text-align: right;
-    width: 100%;
     font-family: Roboto;
     font-size: 1rem;
     font-weight: normal;
@@ -169,6 +172,9 @@ export const DivHr = styled.div`
 export const DivButton = styled.div`
     display: flex;
     width: 100vw;
+    @media (min-width: 1000px){
+        width: 50vw
+    }
 `
 export const ButtonCartEmpty = styled.button`
     margin: 1rem;
@@ -184,6 +190,7 @@ export const ButtonCartEmpty = styled.button`
     text-align: center;
 `
 export const ButtonCartFull = styled.button`
+    cursor: pointer;
     margin: 1rem;
     width: 100%;
     height: 2.625rem;

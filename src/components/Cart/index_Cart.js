@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-//import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import * as S from './style_Cart';
 //rgba(232, 34, 46, 0.5);
 //mock carrinho
 //[{"id": 1, "product": "Cart", "price": 15, "image": "https://www.teclasap.com.br/wp-content/uploads/2011/05/hamburger.jpg"}, {"id": 2, "product": "Cart", "price": 13, "image": "https://www.teclasap.com.br/wp-content/uploads/2011/05/hamburger.jpg"}]
 
 const Index_Cart = (props) => {
+  const history = useHistory();
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')));
+  const [token, setToken] = useState(localStorage.getItem('token'))
   const [paymentMethod, setPaymentMethod] = useState('');
   const address = JSON.parse(localStorage.getItem('addressUser'));
   const [newCart, setNewCart] = useState([]);
@@ -53,22 +56,54 @@ const Index_Cart = (props) => {
     console.log(newCart)
     const removeCart = newCart.filter(item => item.id !== id)
     setNewCart(removeCart);
-    localStorage.removeItem('cart');
+    //localStorage.removeItem('cart');
     localStorage.setItem('cart', JSON.parse(newCart))
   }
 
-  const confirmBuy = () => {
+  const confirmBuy = (products) => {
+    const product = products.map(item => {
+        return {"id": item.id,
+                "quantity": item.qtd};
+    })
+
     const dataBuy = {
-      "products": 
-        [{
-            "id": "CnKdjU6CyKakQDGHzNln",
-            "quantity": 10
+        "products": product,
+            "paymentMethod": paymentMethod 
+        } 
+    const dataBuy2 = {
+        "products": [{
+            "id": "3vcYYSOEf8dKeTPd7vHe",
+            "quantity": 2
         }, {
             "quantity": 1,
-            "id": "KJqMl2DxeShkSBevKVre"
+            "id": "5omTFSOBYiTqeiDwhiBx"
         }],
         "paymentMethod": "creditcard"
-        }
+    }
+    console.log(dataBuy)
+    console.log(dataBuy2)
+        const dataInicial = new Date(1594994968394)
+        const dataFinal = new Date(1595007421284)
+        //console.log(dataInicial)
+        //console.log(dataFinal)
+    if(paymentMethod !== ''){
+    //falta adicionar o restaurant
+      axios.post(`https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/restaurants/1/order`, 
+        dataBuy, 
+        {headers: {
+            auth: token
+        }})
+        .then(response => {
+            console.log(response)
+            //console.log(response.order.createdAt);
+            //console.log(response.order.expiresAt);
+            localStorage.removeItem('cart');
+            history.push('/feed')
+        }).catch(error => {
+            console.log(error.message)
+        })
+    }
+    
   }
 
   if (newCart.length === 0 || newCart=== undefined){
@@ -110,11 +145,11 @@ const Index_Cart = (props) => {
               {newCart.length > 0 && newCart.map((product) => {
                 return (
                 <S.DivCard key={product.id}>
-                    <S.ImgProduct src={product.image} />
+                    <S.ImgProduct src={product.photoUrl} />
                     <S.DivProductDetail>
                         <S.QuantityProducts>{product.qtd}</S.QuantityProducts>
-                        <S.TitleProduct>{product.product}</S.TitleProduct>
-                        <S.DescProduct></S.DescProduct>
+                        <S.TitleProduct>{product.name}</S.TitleProduct>
+                        <S.DescProduct>{product.description}</S.DescProduct>
                       <S.BottomCard>  
                         <S.PriceProduct>{product.price.toFixed(2)}</S.PriceProduct>
                         <S.ButtonDeleteProduct onClick={() => removeProduct(product.id)}>remover</S.ButtonDeleteProduct>
@@ -123,7 +158,7 @@ const Index_Cart = (props) => {
                 </S.DivCard>)
             })}
             </S.DivCartFull>
-            <S.DivFreight>Frete R$0,00</S.DivFreight>
+            <S.DivFreight>Frete R$6,00</S.DivFreight>
             <S.DivPayment>
                 <div>SubTotal</div>
                 <div>R${(newCart.reduce((acumulador, valor) => acumulador + valor.price, 0)).toFixed(2)}</div>
@@ -134,11 +169,11 @@ const Index_Cart = (props) => {
                 <S.InputRadio data-testid="money" name="paymentMethod" type="radio" id="money" value="money" onChange={choosePaymentMethod}/> Dinhero
             </div>
             <div>
-                <S.InputRadio data-testid="card" name="paymentMethod" type="radio" id="card" value="card" onChange={choosePaymentMethod}/> Cartão de crédito
+                <S.InputRadio data-testid="card" name="paymentMethod" type="radio" id="card" value="creditcard" onChange={choosePaymentMethod}/> Cartão de crédito
             </div>  
           <S.DivDataPayment>
             <S.DivButton>
-                <S.ButtonCartFull>Confirmar</S.ButtonCartFull> 
+                <S.ButtonCartFull onClick={() => {confirmBuy(newCart)}}>Confirmar</S.ButtonCartFull> 
             </S.DivButton>
           </S.DivDataPayment>  
         </S.DivContainer>)

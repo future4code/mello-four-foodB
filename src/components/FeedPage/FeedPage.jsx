@@ -55,6 +55,7 @@ const FeedPage = () => {
       <div className="Container">
         <Link to="/search">
           <input
+          
             className="SearchInput"
             type="text"
             placeholder="Restaurante"

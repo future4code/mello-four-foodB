@@ -18,6 +18,9 @@ import {
 } from "../Profile/styled";
 import editIcon from "../../assets/Profile/edit.png";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -26,17 +29,18 @@ import Footer from "../Footer/Footer";
 
 function ProfilePage() {
   const [profile, setProfile] = useState("");
-  const [address, setAddress] = useState();
-  const [history, setHistory] = useState([]);
+  const [historys, setHistorys] = useState([]);
 
-  useEffect(() => {
-    getProfile();
-    getHistory();
-  }, []);
+  const history = useHistory();
+  const goToProfileEdit = () => {
+    history.push("/editProfile");
+  };
+  const goToAddressEdit = () => {
+    history.push("/editAddress");
+  };
 
   const getProfile = () => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZBOGlWQ2RVZ3k2R01OSE1BU1AxIiwibmFtZSI6Ikx1aXoiLCJlbWFpbCI6Imx1aXpAZ21haWwuY29tIiwiY3BmIjoiMjIyLjIyMi4zMzMtNDQiLCJoYXNBZGRyZXNzIjp0cnVlLCJhZGRyZXNzIjoiUi4gQWZvbnNvIEJyYXosIDE3NywgNzEgLSBWaWxhIE4uIENvbmNlacOnw6NvIiwiaWF0IjoxNTk0NzAxOTI3fQ.0Nmf_3Ow1zhBIExOzMVQp78HD--o5DO0BxBdP13Jh9E";
+    const token = window.localStorage.getItem("token");
 
     const axiosConfig = {
       headers: {
@@ -58,9 +62,8 @@ function ProfilePage() {
       });
   };
 
-  const getHistory = () => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZBOGlWQ2RVZ3k2R01OSE1BU1AxIiwibmFtZSI6Ikx1aXoiLCJlbWFpbCI6Imx1aXpAZ21haWwuY29tIiwiY3BmIjoiMjIyLjIyMi4zMzMtNDQiLCJoYXNBZGRyZXNzIjp0cnVlLCJhZGRyZXNzIjoiUi4gQWZvbnNvIEJyYXosIDE3NywgNzEgLSBWaWxhIE4uIENvbmNlacOnw6NvIiwiaWF0IjoxNTk0NzAxOTI3fQ.0Nmf_3Ow1zhBIExOzMVQp78HD--o5DO0BxBdP13Jh9E";
+  const getHistorys = () => {
+    const token = window.localStorage.getItem("token");
 
     const axiosConfig = {
       headers: {
@@ -73,18 +76,26 @@ function ProfilePage() {
         axiosConfig
       )
       .then((response) => {
-        setHistory(response.data.orders);
+        setHistorys(response.data.orders);
         console.log(response);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+  useEffect(() => {
+    getProfile();
+    getHistorys();
+  }, []);
 
   return (
     <>
       <Container>
+<<<<<<< HEAD
         <Header title="Meu Perfil" />
+=======
+      <Header title="Meu Perfil" />
+>>>>>>> 91c9a620b818b97e900e588ffc08e61ff6818ced
         <CardsStyled>
           <PerfilStyle>
             {profile.name} <Img src={editIcon} />

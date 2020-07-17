@@ -26,7 +26,6 @@ import Footer from "../Footer/Footer";
 
 function ProfilePage() {
   const [profile, setProfile] = useState("");
-  const [address, setAddress] = useState();
   const [historys, setHistorys] = useState([]);
 
   const history = useHistory();

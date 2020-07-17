@@ -17,7 +17,7 @@ function Header(props) {
   */
 
   const ChangePage = (pageToLink) => {
-    history.push(`/${pageToLink}`);
+    history.push(`${pageToLink}`);
   };
 
   const GetHeader = () => {
@@ -27,7 +27,7 @@ function Header(props) {
         {props.BackArrow ? (
           <IconButton
             onClick={() =>
-              ChangePage(props.PageToLink ? props.PageToLink : "Home")
+              ChangePage(props.PageToLink ? props.PageToLink : "/")
             }
           >
             <ArrowBackIosIcon />

@@ -79,7 +79,7 @@ const SignUpPage = () => {
   };
   return (
     <>
-      <Header BackArrow='True' PageToLink='/'/>
+      <Header BackArrow='True' PageToLink=''/>
       <Container>
         <ContainerForm onSubmit={handleFormValues}>
           <img src={Logo} className="imageLogo" alt="logotipo ifuture" />

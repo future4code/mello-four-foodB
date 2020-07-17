@@ -191,9 +191,9 @@ function Restaurant({
 
   return <div> 
 
-        <Header BackArrow='True' PageToLink='feed' title={Restaurant? restaurant.name: "Carregando"}/>
+        <Header BackArrow='True' PageToLink='/feed' title={Restaurant? restaurant.name: "Carregando"}/>
         {Restaurant && <div className='Canvas'>
-          <img src={restaurant.logoUrl}/>
+          <img src={restaurant.logoUrl} alt="Logo do restaurante"/>
 
           <Typography>{restaurant.name}</Typography>
           <Typography variant="subtitle2" color="textSecondary">{restaurant.category}</Typography>

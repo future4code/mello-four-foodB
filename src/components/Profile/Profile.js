@@ -85,7 +85,6 @@ function ProfilePage() {
     <>
       <Container>
         <Header title="Meu Perfil" />
-
         <CardsStyled>
           <PerfilStyle>
             {profile.name} <Img src={editIcon} />

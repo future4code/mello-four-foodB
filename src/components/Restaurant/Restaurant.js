@@ -191,7 +191,7 @@ function Restaurant({
 
   return <div> 
 
-        <Header BackArrow='True' PageToLink='' title={Restaurant? restaurant.name: "Carregando"}/>
+        <Header BackArrow='True' PageToLink='feed' title={Restaurant? restaurant.name: "Carregando"}/>
         {Restaurant && <div className='Canvas'>
           <img src={restaurant.logoUrl}/>
 

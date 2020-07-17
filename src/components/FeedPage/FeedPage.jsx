@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./FeedPage.css";
 
 import { Link } from "react-router-dom";
@@ -7,8 +7,45 @@ import { useGetRestaurants } from "../Hooks/useGetRestaurants";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-const FeedPage = (props) => {
+const FeedPage = () => {
+  const categories = [
+    "Árabe",
+    "Asiática",
+    "Hamburguer",
+    "Italiana",
+    "Sorvetes",
+    "Carnes",
+    "Mexicana",
+    "Baiana",
+    "Petiscos",
+  ];
+
   const restaurants = useGetRestaurants();
+  const [restaurantList, setRestaurantList] = useState([]);
+  const [categoryCopy, setCategoryCopy] = useState("");
+  const [clickedSameCategory, setClickedSameCategory] = useState(false);
+
+  useEffect(() => {
+    setRestaurantList(restaurants);
+  }, [restaurants]);
+
+  const handleFilter = (category) => {
+    setRestaurantList(
+      restaurants.filter((restaurant) => {
+        return restaurant.category === category;
+      })
+    );
+    if (categoryCopy !== category) {
+      setCategoryCopy(category);
+      setClickedSameCategory(false);
+    } else {
+      setClickedSameCategory(!clickedSameCategory);
+      if (!clickedSameCategory) {
+        setRestaurantList(restaurants);
+        console.log(`setado aqui`, restaurants);
+      }
+    }
+  };
 
   //TODO: Falta Tirar o scroll do Filtro.
 
@@ -23,21 +60,22 @@ const FeedPage = (props) => {
             placeholder="Restaurante"
           />
         </Link>
+
         <div className="FilterCard">
-          {restaurants.map((restaurant) => (
-            <span key={restaurant.id} className="Filter">
-              {restaurant.category}
+          {categories.map((item) => (
+            <span
+              key={item}
+              className={`Filter`}
+              onClick={() => handleFilter(item)}
+            >
+              {item}
             </span>
           ))}
         </div>
-        {restaurants.map((restaurant) => (
-          <Link
-            to={{
-              pathname: "/products",
-              state: { restaurantId: restaurant.id },
-            }}
-          >
-            <div key={restaurant.id} className="Card">
+
+        {restaurantList.map((restaurant) => (
+          <Link key={restaurant.id} to={`/Restaurant/${restaurant.id}`}>
+            <div className="Card">
               <img src={restaurant.logoUrl} alt="Imagem do card" />
               <div>
                 <p className="Restaurant">{restaurant.name}</p>

@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 import Header from '../Header/Header'
+import OrderPopUp from '../OrderPopUp/OrderPopUp'
 
 import './Restaurant.css';
 import { Typography, Divider, Card, CardMedia, CardContent, Button } from '@material-ui/core';
@@ -119,8 +120,9 @@ function Restaurant({
     if(popUpQuantity != 0)
     {
       const NewProduct = {
-        product:productPopUp,
-        quantity:popUpQuantity
+        restautant: id,
+        product: productPopUp,
+        quantity: popUpQuantity
       }
 
       let cart = new Array();
@@ -211,6 +213,7 @@ function Restaurant({
         </div>}
 
         {popUp && RenderPopUp()}
+        <OrderPopUp></OrderPopUp>
     </div>
 }
 

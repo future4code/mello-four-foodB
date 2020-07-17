@@ -77,7 +77,6 @@ const SignUpPage = () => {
     axios
       .post(`${baseUrl}/signup`, form)
       .then((response) => {
-        alert("Cadastro Efetuado")
       })
       .catch((error) => {
         console.log(error.response.data.message)

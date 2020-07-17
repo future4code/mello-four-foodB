@@ -86,7 +86,7 @@ const RegisterAddressPage = () => {
     axios
       .put(`${baseUrl}/address`, form, axiosConfig)
       .then((response) => {
-        alert("Endereço registrado com sucesso!");
+        alert("Cadastro concluido!");
         window.localStorage.setItem("address", response.data.user);
         console.log(response.data.user);
       })
@@ -106,7 +106,7 @@ const RegisterAddressPage = () => {
           id="outlined-required"
           label="Logradouro"
           variant="outlined"
-          value={form.street}
+          defaultValue={form.street}
           onChange={handleInputChange}
           placeholder="Rua / Av."
         />
@@ -117,7 +117,7 @@ const RegisterAddressPage = () => {
           label="Número"
           variant="outlined"
           type="number"
-          value={form.number}
+          defaultValue={form.number}
           onChange={handleInputChange}
           placeholder="Número"
         />
@@ -126,7 +126,7 @@ const RegisterAddressPage = () => {
           id="outlined-required"
           label="Complemento"
           variant="outlined"
-          value={form.complement}
+          defaultValue={form.complement}
           onChange={handleInputChange}
           placeholder="Apto. / Bloco"
         />
@@ -136,7 +136,7 @@ const RegisterAddressPage = () => {
           id="outlined-required"
           label="Bairro"
           variant="outlined"
-          value={form.neighbourhood}
+          defaultValue={form.neighbourhood}
           onChange={handleInputChange}
           placeholder="Bairro"
         />
@@ -146,7 +146,7 @@ const RegisterAddressPage = () => {
           id="outlined-required"
           label="Logradouro"
           variant="outlined"
-          value={form.city}
+          defaultValue={form.city}
           onChange={handleInputChange}
           placeholder="Cidade"
         />
@@ -156,7 +156,7 @@ const RegisterAddressPage = () => {
           id="outlined-required"
           label="Estado"
           variant="outlined"
-          value={form.state}
+          defaultValue={form.state}
           onChange={handleInputChange}
           placeholder="Estado"
         />

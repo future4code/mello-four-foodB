@@ -11,12 +11,12 @@ Projeto de encerramento do módulo de Front-End para a a Labenu.
 
 Aplicativo de delivery baseado no layout do Ifood, em modelo de aprensentação para mobile.
 
-# Dependências
+### Dependências
 
 nodejs
 npm
 
-# Instalação
+### Instalação
 
 ```git clone https://github.com/future4code/mello-four-foodB.git ```
 
@@ -26,19 +26,19 @@ npm
 
 ```npm start```
 
-# Tecnologias
+### Tecnologias
 
 React
 
-# Autores
+### Autores
 
-Artur Marques Magalhães
-Diogo Gaspar
-Luiz Mitsuru Dai
-Ronaldo Jonson
-Thiago Stephen
+* **Artur Marques Magalhães**
+* **Diogo Gaspar**
+* **Luiz Mitsuru Dai**
+* **Ronaldo Jonson**
+* **Thiago Stephen**
 
 
-# Licença
+### Licença
 
 MIT

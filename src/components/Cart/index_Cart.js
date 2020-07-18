@@ -14,6 +14,7 @@ const Index_Cart = (props) => {
   const address = JSON.parse(localStorage.getItem('user'));
   const [newCart, setNewCart] = useState([]);
   const auxNewCart = []
+  let restaurant
 
   const choosePaymentMethod = (event) => {
       setPaymentMethod(event.target.value);
@@ -52,43 +53,40 @@ const Index_Cart = (props) => {
 
   },[])
   console.log(newCart)
+
   const removeProduct = (id) => {
-    console.log(newCart)
-    const removeCart = newCart.filter(item => item.id !== id)
+      console.log(id)
+    console.log(cart)
+    const removeCart = cart.filter(item => item.product.id !== id)
     setNewCart(removeCart);
     //localStorage.removeItem('cart');
-    localStorage.setItem('cart', JSON.parse(newCart))
+    for(let i = 0; i < cart.length; i++){
+        if(cart[i].product.id === id)
+        {
+          cart.splice(i, 1);
+          localStorage.setItem("cart", JSON.stringify(cart));
+        }
+      }
   }
 
   const confirmBuy = (products) => {
     const product = products.map(item => {
-        return {"id": item.id,
-                "quantity": item.qtd};
+        console.log(item.products)
+        return {"id": item.product.id,
+                "quantity": item.quantity};
     })
 
     const dataBuy = {
         "products": product,
             "paymentMethod": paymentMethod 
         } 
-    const dataBuy2 = {
-        "products": [{
-            "id": "3vcYYSOEf8dKeTPd7vHe",
-            "quantity": 2
-        }, {
-            "quantity": 1,
-            "id": "5omTFSOBYiTqeiDwhiBx"
-        }],
-        "paymentMethod": "creditcard"
-    }
     console.log(dataBuy)
-    console.log(dataBuy2)
         const dataInicial = new Date(1594994968394)
         const dataFinal = new Date(1595007421284)
         //console.log(dataInicial)
         //console.log(dataFinal)
     if(paymentMethod !== ''){
-    //falta adicionar o restaurant
-      axios.post(`https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/restaurants/1/order`, 
+      axios.post(`https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/restaurants/${restaurant}/order`, 
         dataBuy, 
         {headers: {
             auth: token
@@ -106,7 +104,7 @@ const Index_Cart = (props) => {
     
   }
 
-  if (newCart.length === 0 || newCart=== undefined){
+  if (cart === null || newCart.length === 0 ){
     return(<S.DivContainer>
         <S.DivSubHeader>Meu carrinho</S.DivSubHeader>
         <S.DivTitleEndereco>
@@ -143,17 +141,18 @@ const Index_Cart = (props) => {
                 <S.PAddress>{address.address}</S.PAddress>
             </S.DivTitleEndereco>
             <S.DivCartFull>
-              {newCart.length > 0 && newCart.product.map((product) => {
+              {cart.length > 0 && cart.map((product) => {
+                restaurant = product.restautant
                 return (
-                <S.DivCard key={product.id}>
-                    <S.ImgProduct src={product.photoUrl} />
+                <S.DivCard key={product.product.id}>
+                    <S.ImgProduct src={product.product.photoUrl} />
                     <S.DivProductDetail>
-                        <S.QuantityProducts>{product.qtd}</S.QuantityProducts>
-                        <S.TitleProduct>{product.name}</S.TitleProduct>
-                        <S.DescProduct>{product.description}</S.DescProduct>
+                        <S.QuantityProducts>{product.quantity}</S.QuantityProducts>
+                        <S.TitleProduct>{product.product.name}</S.TitleProduct>
+                        <S.DescProduct>{product.product.description}</S.DescProduct>
                       <S.BottomCard>  
-                        <S.PriceProduct>{product.price}</S.PriceProduct>
-                        <S.ButtonDeleteProduct onClick={() => removeProduct(product.id)}>remover</S.ButtonDeleteProduct>
+                        <S.PriceProduct>R$ {product.product.price.toFixed(2)}</S.PriceProduct>
+                        <S.ButtonDeleteProduct onClick={() => removeProduct(product.product.id)}>remover</S.ButtonDeleteProduct>
                       </S.BottomCard>
                     </S.DivProductDetail>
                 </S.DivCard>)
@@ -162,7 +161,7 @@ const Index_Cart = (props) => {
             <S.DivFreight>Frete R$6,00</S.DivFreight>
             <S.DivPayment>
                 <div>SubTotal</div>
-                <div>R${(newCart.reduce((acumulador, valor) => acumulador + valor.price, 0)).toFixed(2)}</div>
+                <div>R${(newCart.reduce((acumulador, valor) => acumulador + valor.product.price, 6)).toFixed(2)}</div>
             </S.DivPayment>
             <S.DivText>Forma de pagamento</S.DivText>
             <hr />
@@ -174,7 +173,7 @@ const Index_Cart = (props) => {
             </div>  
           <S.DivDataPayment>
             <S.DivButton>
-                <S.ButtonCartFull onClick={() => {confirmBuy(newCart)}}>Confirmar</S.ButtonCartFull> 
+                <S.ButtonCartFull onClick={() => {confirmBuy(cart)}}>Confirmar</S.ButtonCartFull> 
             </S.DivButton>
           </S.DivDataPayment> 
         </S.DivContainer>

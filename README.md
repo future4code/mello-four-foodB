@@ -5,7 +5,7 @@ Projeto de encerramento do módulo de Front-End para a a Labenu.
 
 ## Prévia
 
-
+![](/src/assets/screenshot/screenshot.png)
 
 ## Descrição
 

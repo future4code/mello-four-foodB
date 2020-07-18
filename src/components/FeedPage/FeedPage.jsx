@@ -42,12 +42,9 @@ const FeedPage = () => {
       setClickedSameCategory(!clickedSameCategory);
       if (!clickedSameCategory) {
         setRestaurantList(restaurants);
-        console.log(`setado aqui`, restaurants);
       }
     }
   };
-
-  //TODO: Falta Tirar o scroll do Filtro.
 
   return (
     <>
@@ -55,7 +52,6 @@ const FeedPage = () => {
       <div className="Container">
         <Link to="/search">
           <input
-          
             className="SearchInput"
             type="text"
             placeholder="Restaurante"

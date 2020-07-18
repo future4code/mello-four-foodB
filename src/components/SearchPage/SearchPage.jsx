@@ -5,7 +5,6 @@ import "./SearchPage.css";
 import { useGetRestaurants } from "../Hooks/useGetRestaurants";
 
 import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 
 const SearchPage = () => {
   const [inputValue, setInputValue] = useState("");

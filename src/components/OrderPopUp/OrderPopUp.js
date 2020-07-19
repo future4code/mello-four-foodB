@@ -1,24 +1,39 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import './OrderPopUp.css';
-
-import { IconButton, Divider, Typography  } from '@material-ui/core';
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import clock from '../../assets/images/clock.svg'
 
 
 function OrderPopUp(props) {
+  const [order, setOrder] = useState({});
 
   //props
   // Restaurant: Nome do restaurant
   // Price: preço
 
   // <OrderPopUp Restaurant:'Habbibs' Price:'70,50'/>
+
+  useEffect(() => {
+    GetActiveOrder();
+  }, [])
+
+  const GetActiveOrder = () => {
+    const token = window.localStorage.getItem('token');
+    axios.get('https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/active-order', {
+        headers: {
+        auth: token
+        }
+    })
+    .then(response => {
+        console.log(response);
+        setOrder(response.data);
+    })
+    .catch(error => {
+        console.log(error);
+    })
+  }
 
   return  <div className='Popup'> 
         <div className='PopupContainer'>

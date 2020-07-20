@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import * as S from './style_Cart';
+import Footer from '../Footer/Footer';
 //rgba(232, 34, 46, 0.5);
 //mock carrinho
 //[{"id": 1, "product": "Cart", "price": 15, "image": "https://www.teclasap.com.br/wp-content/uploads/2011/05/hamburger.jpg"}, {"id": 2, "product": "Cart", "price": 13, "image": "https://www.teclasap.com.br/wp-content/uploads/2011/05/hamburger.jpg"}]
@@ -105,7 +106,7 @@ const Index_Cart = (props) => {
   }
 
   if (cart === null || newCart.length === 0 ){
-    return(<S.DivContainer>
+    return(<><S.DivContainer>
         <S.DivSubHeader>Meu carrinho</S.DivSubHeader>
         <S.DivTitleEndereco>
             <S.Pdefault>Endereço de entrega</S.Pdefault>
@@ -130,7 +131,11 @@ const Index_Cart = (props) => {
                 <S.ButtonCartEmpty>Confirmar</S.ButtonCartEmpty> 
             </S.DivButton>
         </S.DivDataPayment>
-        </S.DivContainer>)
+        </S.DivContainer>
+        <S.DivFooter>
+            <Footer />
+        </S.DivFooter>
+        </>)
   } else {
       return (
       <>
@@ -177,7 +182,10 @@ const Index_Cart = (props) => {
             </S.DivButton>
           </S.DivDataPayment> 
         </S.DivContainer>
-          </>
+        <S.DivFooter>
+            <Footer />
+        </S.DivFooter>
+      </>
         )
   }
 }

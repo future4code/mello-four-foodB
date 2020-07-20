@@ -2,9 +2,6 @@ import styled from 'styled-components';
 
 export const DivContainer = styled.div`
     width: 100vw;
-    @media (min-width: 1366px){
-        width: 50vw
-    }
 `
 export const DivSubHeader = styled.div`
     display: flex;
@@ -124,7 +121,7 @@ export const PAddress = styled.div`
     color: black;
 `
 export const DivDataPayment = styled.div`
-    bottom: 0;
+    bottom: 3rem;
     position: fixed;
     width: 100vw;
 `
@@ -166,15 +163,11 @@ export const DivPayment = styled.div`
     letter-spacing: -0.43px;
 `
 export const DivHr = styled.div`
-    width: 100%;
     padding: 1rem;
 `
 export const DivButton = styled.div`
     display: flex;
     width: 100vw;
-    @media (min-width: 1000px){
-        width: 50vw
-    }
 `
 export const ButtonCartEmpty = styled.button`
     margin: 1rem;
@@ -202,4 +195,9 @@ export const ButtonCartFull = styled.button`
     font-size: 1rem;
     color: black;
     text-align: center;
+`
+export const DivFooter = styled.div`
+    bottom: 0;
+    position: fixed;
+    width: 100vw;
 `

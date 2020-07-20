@@ -83,23 +83,23 @@ function Restaurant({
             image={product.photoUrl}
             title={product.name}
           />
-          <CardContent className='CardContent'>
+          <div className='CardContent'>
             {quantity > 0 && <div>
               <span className="QuantityLabel">{quantity}</span>
             </div>}
-            <h6 component="subtitle2" variant="h6">
+            <h5>
               {product.name}
-            </h6>
-            <p variant="caption" color="textSecondary">
+            </h5>
+            <span>
               {product.description}
-            </p>
+            </span>
             <div>
-              <h6 component="subtitle2" variant="h6">
+              <h5>
                 R${product.price}
-              </h6>
+              </h5>
               <button className={quantity > 0? 'OrderButtonRed' : 'OrderButton'} onClick={quantity > 0? () => RemoveProductFromCart(product) : () => OpenPopup(product)} color={quantity > 0? 'red': ''}>{quantity > 0? 'remover' : 'adicionar'}</button>
             </div>
-          </CardContent>
+          </div>
       </div>
     })
 
